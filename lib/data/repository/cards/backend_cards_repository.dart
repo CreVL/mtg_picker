@@ -23,10 +23,10 @@ class BackendCardsRepository implements CardsRepository {
       final List<Card> cards = responseData.map((data) {
         return Card.fromJson(data);
       }).toList();
-
       return cards;
-    }
 
-    return [];
+    } else {
+      throw Exception('Failed to load cards: ${response.statusCode}');
+    }
   }
 }
