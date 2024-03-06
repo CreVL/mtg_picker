@@ -23,7 +23,7 @@ abstract class CardControllerBase with Store {
   }
 
   @observable
-  ObservableList<Card> cards = ObservableList<Card>();
+  ObservableList<Cards> cards = ObservableList<Cards>();
 
   @observable
   bool isLoading = false;

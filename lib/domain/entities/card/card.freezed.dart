@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Card _$CardFromJson(Map<String, dynamic> json) {
-  return _Card.fromJson(json);
+Cards _$CardsFromJson(Map<String, dynamic> json) {
+  return _Cards.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Card {
+mixin _$Cards {
   String get name => throw _privateConstructorUsedError;
   String get manaCost => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
@@ -28,13 +28,13 @@ mixin _$Card {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CardCopyWith<Card> get copyWith => throw _privateConstructorUsedError;
+  $CardsCopyWith<Cards> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CardCopyWith<$Res> {
-  factory $CardCopyWith(Card value, $Res Function(Card) then) =
-      _$CardCopyWithImpl<$Res, Card>;
+abstract class $CardsCopyWith<$Res> {
+  factory $CardsCopyWith(Cards value, $Res Function(Cards) then) =
+      _$CardsCopyWithImpl<$Res, Cards>;
   @useResult
   $Res call(
       {String name,
@@ -45,9 +45,9 @@ abstract class $CardCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CardCopyWithImpl<$Res, $Val extends Card>
-    implements $CardCopyWith<$Res> {
-  _$CardCopyWithImpl(this._value, this._then);
+class _$CardsCopyWithImpl<$Res, $Val extends Cards>
+    implements $CardsCopyWith<$Res> {
+  _$CardsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -89,10 +89,10 @@ class _$CardCopyWithImpl<$Res, $Val extends Card>
 }
 
 /// @nodoc
-abstract class _$$CardImplCopyWith<$Res> implements $CardCopyWith<$Res> {
-  factory _$$CardImplCopyWith(
-          _$CardImpl value, $Res Function(_$CardImpl) then) =
-      __$$CardImplCopyWithImpl<$Res>;
+abstract class _$$CardsImplCopyWith<$Res> implements $CardsCopyWith<$Res> {
+  factory _$$CardsImplCopyWith(
+          _$CardsImpl value, $Res Function(_$CardsImpl) then) =
+      __$$CardsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -104,10 +104,11 @@ abstract class _$$CardImplCopyWith<$Res> implements $CardCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$CardImplCopyWithImpl<$Res>
-    extends _$CardCopyWithImpl<$Res, _$CardImpl>
-    implements _$$CardImplCopyWith<$Res> {
-  __$$CardImplCopyWithImpl(_$CardImpl _value, $Res Function(_$CardImpl) _then)
+class __$$CardsImplCopyWithImpl<$Res>
+    extends _$CardsCopyWithImpl<$Res, _$CardsImpl>
+    implements _$$CardsImplCopyWith<$Res> {
+  __$$CardsImplCopyWithImpl(
+      _$CardsImpl _value, $Res Function(_$CardsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -119,7 +120,7 @@ class __$$CardImplCopyWithImpl<$Res>
     Object? rarity = null,
     Object? imageUrl = null,
   }) {
-    return _then(_$CardImpl(
+    return _then(_$CardsImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -146,8 +147,8 @@ class __$$CardImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CardImpl extends _Card {
-  const _$CardImpl(
+class _$CardsImpl extends _Cards {
+  const _$CardsImpl(
       {required this.name,
       required this.manaCost,
       required this.type,
@@ -155,8 +156,8 @@ class _$CardImpl extends _Card {
       required this.imageUrl})
       : super._();
 
-  factory _$CardImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CardImplFromJson(json);
+  factory _$CardsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CardsImplFromJson(json);
 
   @override
   final String name;
@@ -171,14 +172,14 @@ class _$CardImpl extends _Card {
 
   @override
   String toString() {
-    return 'Card(name: $name, manaCost: $manaCost, type: $type, rarity: $rarity, imageUrl: $imageUrl)';
+    return 'Cards(name: $name, manaCost: $manaCost, type: $type, rarity: $rarity, imageUrl: $imageUrl)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CardImpl &&
+            other is _$CardsImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.manaCost, manaCost) ||
                 other.manaCost == manaCost) &&
@@ -196,27 +197,27 @@ class _$CardImpl extends _Card {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CardImplCopyWith<_$CardImpl> get copyWith =>
-      __$$CardImplCopyWithImpl<_$CardImpl>(this, _$identity);
+  _$$CardsImplCopyWith<_$CardsImpl> get copyWith =>
+      __$$CardsImplCopyWithImpl<_$CardsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CardImplToJson(
+    return _$$CardsImplToJson(
       this,
     );
   }
 }
 
-abstract class _Card extends Card {
-  const factory _Card(
+abstract class _Cards extends Cards {
+  const factory _Cards(
       {required final String name,
       required final String manaCost,
       required final String type,
       required final String rarity,
-      required final String imageUrl}) = _$CardImpl;
-  const _Card._() : super._();
+      required final String imageUrl}) = _$CardsImpl;
+  const _Cards._() : super._();
 
-  factory _Card.fromJson(Map<String, dynamic> json) = _$CardImpl.fromJson;
+  factory _Cards.fromJson(Map<String, dynamic> json) = _$CardsImpl.fromJson;
 
   @override
   String get name;
@@ -230,6 +231,6 @@ abstract class _Card extends Card {
   String get imageUrl;
   @override
   @JsonKey(ignore: true)
-  _$$CardImplCopyWith<_$CardImpl> get copyWith =>
+  _$$CardsImplCopyWith<_$CardsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

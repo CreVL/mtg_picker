@@ -4,16 +4,16 @@ part 'card.freezed.dart';
 part 'card.g.dart';
 
 @freezed
-class Card with _$Card {
-  const Card._();
+class Cards with _$Cards {
+  const Cards._();
 
-  const factory Card({
+  const factory Cards({
     required String name,
     required String manaCost,
     required String type,
     required String rarity,
     required String imageUrl,
-  }) = _Card;
+  }) = _Cards;
 
-  factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
+  factory Cards.fromJson(Map<String, dynamic> json) => _$CardsFromJson(json);
 }

@@ -6,17 +6,15 @@ import 'package:mtg_picker/ui/theme/theme.dart';
 class ListTileCard extends StatelessWidget {
   final String nameCard;
   final String imageCard;
-  final String typeCard;
   final String manaCostCard;
-  final String rarityCard;
+  final VoidCallback onTap;
 
   const ListTileCard({
     super.key,
     required this.nameCard,
     required this.imageCard,
-    required this.typeCard,
     required this.manaCostCard,
-    required this.rarityCard,
+    required this.onTap,
   });
 
   @override
@@ -24,7 +22,7 @@ class ListTileCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: GestureDetector(
-        onTap: () {},
+        onTap: onTap,
         child: Row(
           children: [
             Container(
@@ -57,14 +55,6 @@ class ListTileCard extends StatelessWidget {
                     nameCard,
                     style: themeData.textTheme.titleLarge,
                   ),
-                  Text(
-                    typeCard,
-                    style: themeData.textTheme.titleMedium,
-                  ),
-                  Text(
-                    rarityCard,
-                    style: themeData.textTheme.titleSmall,
-                  )
                 ],
               ),
             )

@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
+import 'package:mtg_picker/ui/pages/card_details_page/card_details_page.dart';
 import 'package:mtg_picker/ui/resurces/app_colors.dart';
 import 'package:mtg_picker/ui/state_managment/card_controller/card_controller.dart';
 import 'package:mtg_picker/ui/widgets/list_tile_сard.dart';
@@ -37,8 +38,14 @@ class CardPage extends HookWidget {
                     nameCard: card.name,
                     imageCard: card.imageUrl,
                     manaCostCard: card.manaCost,
-                    typeCard: card.type,
-                    rarityCard: card.rarity,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CardDetailsPage(card: card),
+                        ),
+                      );
+                    },
                   ),
                 );
               } else {

@@ -13,7 +13,7 @@ class BackendCardsRepository implements CardsRepository {
   }) : _dio = dio;
 
   @override
-  Future<Either<RepositoryError, List<Card>>> getCards({int page = 1}) async {
+  Future<Either<RepositoryError, List<Cards>>> getCards({int page = 1}) async {
     try {
       final response = await _dio.get(
         UrlAddress.cards,
@@ -26,8 +26,8 @@ class BackendCardsRepository implements CardsRepository {
       if (response.statusCode == 200) {
         final List<dynamic> responseData = response.data['cards'];
 
-        final List<Card> cards = responseData.map((data) {
-          return Card.fromJson(data);
+        final List<Cards> cards = responseData.map((data) {
+          return Cards.fromJson(data);
         }).toList();
         return Either.right(cards);
       } else {
