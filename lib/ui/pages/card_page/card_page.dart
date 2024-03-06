@@ -26,18 +26,27 @@ class CardPage extends HookWidget {
           return const Center(child: CircularProgressIndicator());
         } else {
           return ListView.separated(
-            itemCount: controller.cards?.length ?? 0,
+            controller: controller.scrollController,
+            itemCount: controller.cards.length + 1,
             itemBuilder: (context, index) {
-              final card = controller.cards?[index];
-              return Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: ListTileCard(
-                  title: card!.name,
-                  image: card.imageUrl,
-                  manaCostCard: card.manaCost,
-                  typeCard: card.type,
-                ),
-              );
+              if (index < controller.cards.length) {
+                final card = controller.cards[index];
+                return Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: ListTileCard(
+                    nameCard: card.name,
+                    imageCard: card.imageUrl,
+                    manaCostCard: card.manaCost,
+                    typeCard: card.type,
+                    rarityCard: card.rarity,
+                  ),
+                );
+              } else {
+                return const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              }
             },
             separatorBuilder: (context, index) {
               return const Divider(

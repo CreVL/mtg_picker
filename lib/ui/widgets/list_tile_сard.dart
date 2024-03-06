@@ -4,17 +4,19 @@ import 'package:mtg_picker/ui/resurces/app_colors.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 
 class ListTileCard extends StatelessWidget {
-  final String title;
-  final String? image;
-  final String? typeCard;
-  final String? manaCostCard;
+  final String nameCard;
+  final String imageCard;
+  final String typeCard;
+  final String manaCostCard;
+  final String rarityCard;
 
   const ListTileCard({
     super.key,
-    required this.title,
-    required this.image,
+    required this.nameCard,
+    required this.imageCard,
     required this.typeCard,
     required this.manaCostCard,
+    required this.rarityCard,
   });
 
   @override
@@ -35,7 +37,7 @@ class ListTileCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
-                  '$image',
+                  imageCard,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -48,16 +50,20 @@ class ListTileCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    manaCostCard!,
+                    manaCostCard,
                     style: themeData.textTheme.titleSmall,
                   ),
                   Text(
-                    title,
+                    nameCard,
                     style: themeData.textTheme.titleLarge,
                   ),
                   Text(
-                    typeCard!,
+                    typeCard,
                     style: themeData.textTheme.titleMedium,
+                  ),
+                  Text(
+                    rarityCard,
+                    style: themeData.textTheme.titleSmall,
                   )
                 ],
               ),

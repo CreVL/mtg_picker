@@ -13,31 +13,15 @@ mixin _$CardController on CardControllerBase, Store {
       Atom(name: 'CardControllerBase.cards', context: context);
 
   @override
-  List<Card>? get cards {
+  ObservableList<Card> get cards {
     _$cardsAtom.reportRead();
     return super.cards;
   }
 
   @override
-  set cards(List<Card>? value) {
+  set cards(ObservableList<Card> value) {
     _$cardsAtom.reportWrite(value, super.cards, () {
       super.cards = value;
-    });
-  }
-
-  late final _$loadedCardsAtom =
-      Atom(name: 'CardControllerBase.loadedCards', context: context);
-
-  @override
-  ObservableList<Card> get loadedCards {
-    _$loadedCardsAtom.reportRead();
-    return super.loadedCards;
-  }
-
-  @override
-  set loadedCards(ObservableList<Card> value) {
-    _$loadedCardsAtom.reportWrite(value, super.loadedCards, () {
-      super.loadedCards = value;
     });
   }
 
@@ -109,7 +93,6 @@ mixin _$CardController on CardControllerBase, Store {
   String toString() {
     return '''
 cards: ${cards},
-loadedCards: ${loadedCards},
 isLoading: ${isLoading},
 hasError: ${hasError},
 currentPage: ${currentPage}

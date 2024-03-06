@@ -21,11 +21,10 @@ Card _$CardFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Card {
   String get name => throw _privateConstructorUsedError;
-  String? get manaCost => throw _privateConstructorUsedError;
-  String? get type => throw _privateConstructorUsedError;
-  String? get rarity => throw _privateConstructorUsedError;
-  String? get set => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String get manaCost => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
+  String get rarity => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,11 +38,10 @@ abstract class $CardCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      String? manaCost,
-      String? type,
-      String? rarity,
-      String? set,
-      String? imageUrl});
+      String manaCost,
+      String type,
+      String rarity,
+      String imageUrl});
 }
 
 /// @nodoc
@@ -60,37 +58,32 @@ class _$CardCopyWithImpl<$Res, $Val extends Card>
   @override
   $Res call({
     Object? name = null,
-    Object? manaCost = freezed,
-    Object? type = freezed,
-    Object? rarity = freezed,
-    Object? set = freezed,
-    Object? imageUrl = freezed,
+    Object? manaCost = null,
+    Object? type = null,
+    Object? rarity = null,
+    Object? imageUrl = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      manaCost: freezed == manaCost
+      manaCost: null == manaCost
           ? _value.manaCost
           : manaCost // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
+              as String,
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      rarity: freezed == rarity
+              as String,
+      rarity: null == rarity
           ? _value.rarity
           : rarity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      set: freezed == set
-          ? _value.set
-          : set // ignore: cast_nullable_to_non_nullable
-              as String?,
-      imageUrl: freezed == imageUrl
+              as String,
+      imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ) as $Val);
   }
 }
@@ -104,11 +97,10 @@ abstract class _$$CardImplCopyWith<$Res> implements $CardCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      String? manaCost,
-      String? type,
-      String? rarity,
-      String? set,
-      String? imageUrl});
+      String manaCost,
+      String type,
+      String rarity,
+      String imageUrl});
 }
 
 /// @nodoc
@@ -122,37 +114,32 @@ class __$$CardImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? manaCost = freezed,
-    Object? type = freezed,
-    Object? rarity = freezed,
-    Object? set = freezed,
-    Object? imageUrl = freezed,
+    Object? manaCost = null,
+    Object? type = null,
+    Object? rarity = null,
+    Object? imageUrl = null,
   }) {
     return _then(_$CardImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      manaCost: freezed == manaCost
+      manaCost: null == manaCost
           ? _value.manaCost
           : manaCost // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
+              as String,
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      rarity: freezed == rarity
+              as String,
+      rarity: null == rarity
           ? _value.rarity
           : rarity // ignore: cast_nullable_to_non_nullable
-              as String?,
-      set: freezed == set
-          ? _value.set
-          : set // ignore: cast_nullable_to_non_nullable
-              as String?,
-      imageUrl: freezed == imageUrl
+              as String,
+      imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -165,7 +152,6 @@ class _$CardImpl extends _Card {
       required this.manaCost,
       required this.type,
       required this.rarity,
-      required this.set,
       required this.imageUrl})
       : super._();
 
@@ -175,19 +161,17 @@ class _$CardImpl extends _Card {
   @override
   final String name;
   @override
-  final String? manaCost;
+  final String manaCost;
   @override
-  final String? type;
+  final String type;
   @override
-  final String? rarity;
+  final String rarity;
   @override
-  final String? set;
-  @override
-  final String? imageUrl;
+  final String imageUrl;
 
   @override
   String toString() {
-    return 'Card(name: $name, manaCost: $manaCost, type: $type, rarity: $rarity, set: $set, imageUrl: $imageUrl)';
+    return 'Card(name: $name, manaCost: $manaCost, type: $type, rarity: $rarity, imageUrl: $imageUrl)';
   }
 
   @override
@@ -200,7 +184,6 @@ class _$CardImpl extends _Card {
                 other.manaCost == manaCost) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.rarity, rarity) || other.rarity == rarity) &&
-            (identical(other.set, set) || other.set == set) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl));
   }
@@ -208,7 +191,7 @@ class _$CardImpl extends _Card {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, manaCost, type, rarity, set, imageUrl);
+      Object.hash(runtimeType, name, manaCost, type, rarity, imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -227,11 +210,10 @@ class _$CardImpl extends _Card {
 abstract class _Card extends Card {
   const factory _Card(
       {required final String name,
-      required final String? manaCost,
-      required final String? type,
-      required final String? rarity,
-      required final String? set,
-      required final String? imageUrl}) = _$CardImpl;
+      required final String manaCost,
+      required final String type,
+      required final String rarity,
+      required final String imageUrl}) = _$CardImpl;
   const _Card._() : super._();
 
   factory _Card.fromJson(Map<String, dynamic> json) = _$CardImpl.fromJson;
@@ -239,15 +221,13 @@ abstract class _Card extends Card {
   @override
   String get name;
   @override
-  String? get manaCost;
+  String get manaCost;
   @override
-  String? get type;
+  String get type;
   @override
-  String? get rarity;
+  String get rarity;
   @override
-  String? get set;
-  @override
-  String? get imageUrl;
+  String get imageUrl;
   @override
   @JsonKey(ignore: true)
   _$$CardImplCopyWith<_$CardImpl> get copyWith =>

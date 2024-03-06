@@ -10,13 +10,20 @@ class CardController = CardControllerBase with _$CardController;
 abstract class CardControllerBase with Store {
   final CardsRepository cardsRepository;
 
-  CardControllerBase(this.cardsRepository);
+  final ScrollController scrollController = ScrollController();
+
+  CardControllerBase(this.cardsRepository) {
+    scrollController.addListener(_scrolling);
+  }
+
+  void _scrolling() {
+    if (scrollController.offset == scrollController.position.maxScrollExtent) {
+      loadMoreCards();
+    }
+  }
 
   @observable
-  List<Card>? cards;
-
-  @observable
-  ObservableList<Card> loadedCards = ObservableList<Card>();
+  ObservableList<Card> cards = ObservableList<Card>();
 
   @observable
   bool isLoading = false;
@@ -31,14 +38,12 @@ abstract class CardControllerBase with Store {
   Future<void> loadCards() async {
     isLoading = true;
     final eitherResult = await cardsRepository.getCards();
-
     if (eitherResult.isLeft) {
       hasError = true;
     } else if (eitherResult.isRight) {
       hasError = false;
-      cards = eitherResult.right;
+      cards.addAll(eitherResult.right!);
     }
-
     isLoading = false;
   }
 
@@ -46,14 +51,11 @@ abstract class CardControllerBase with Store {
   Future<void> loadMoreCards() async {
     currentPage++;
     final eitherResult = await cardsRepository.getCards(page: currentPage);
-
-    if (eitherResult.isLeft) {
-      hasError = true;
-    } else if (eitherResult.isRight) {
+    if (eitherResult.isRight) {
       hasError = false;
-      cards = eitherResult.right;
+      cards.addAll(eitherResult.right!);
+    } else {
+      hasError = true;
     }
-
-    loadedCards.addAll(eitherResult.right!);
   }
 }
