@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
 import 'package:mtg_picker/domain/entities/card/card.dart';
@@ -21,20 +22,38 @@ abstract class CardControllerBase with Store {
   bool isLoading = false;
 
   @observable
+  bool hasError = false;
+
+  @observable
   int currentPage = 1;
 
   @action
   Future<void> loadCards() async {
     isLoading = true;
-    final res = await cardsRepository.getCards();
-    cards = res;
+    final eitherResult = await cardsRepository.getCards();
+
+    if (eitherResult.isLeft) {
+      hasError = true;
+    } else if (eitherResult.isRight) {
+      hasError = false;
+      cards = eitherResult.right;
+    }
+
     isLoading = false;
   }
 
   @action
   Future<void> loadMoreCards() async {
     currentPage++;
-    final res = await cardsRepository.getCards(page: currentPage);
-    loadedCards.addAll(res);
+    final eitherResult = await cardsRepository.getCards(page: currentPage);
+
+    if (eitherResult.isLeft) {
+      hasError = true;
+    } else if (eitherResult.isRight) {
+      hasError = false;
+      cards = eitherResult.right;
+    }
+
+    loadedCards.addAll(eitherResult.right!);
   }
 }

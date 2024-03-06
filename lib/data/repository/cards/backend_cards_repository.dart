@@ -1,7 +1,9 @@
 import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
+import 'package:mtg_picker/application/repository/repository_error.dart';
 import 'package:mtg_picker/data/values/url_address.dart';
 import 'package:mtg_picker/domain/entities/card/card.dart';
 import 'package:dio/dio.dart';
+import 'package:mtg_picker/internal/entities/either.dart';
 
 class BackendCardsRepository implements CardsRepository {
   final Dio _dio;
@@ -11,24 +13,28 @@ class BackendCardsRepository implements CardsRepository {
   }) : _dio = dio;
 
   @override
-  Future<List<Card>> getCards({int page = 1}) async {
-    final response = await _dio.get(
-      UrlAddress.cards,
-      queryParameters: {
-        'page': page,
-        'contains': 'imageUrl',
-      },
-    );
+  Future<Either<RepositoryError, List<Card>>> getCards({int page = 1}) async {
+    try {
+      final response = await _dio.get(
+        UrlAddress.cards,
+        queryParameters: {
+          'page': page,
+          'contains': 'imageUrl',
+        },
+      );
 
-    if (response.statusCode == 200) {
-      final List<dynamic> responseData = response.data['cards'];
+      if (response.statusCode == 200) {
+        final List<dynamic> responseData = response.data['cards'];
 
-      final List<Card> cards = responseData.map((data) {
-        return Card.fromJson(data);
-      }).toList();
-      return cards;
-    } else {
-      throw Exception('Failed to load cards: ${response.statusCode}');
+        final List<Card> cards = responseData.map((data) {
+          return Card.fromJson(data);
+        }).toList();
+        return Either.right(cards);
+      } else {
+        return Either.left(BadHttpResponseRepositoryError());
+      }
+    } catch (e) {
+      return Either.left(UnknownRepositoryError());
     }
   }
 }

@@ -57,6 +57,22 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
+  late final _$hasErrorAtom =
+      Atom(name: 'CardControllerBase.hasError', context: context);
+
+  @override
+  bool get hasError {
+    _$hasErrorAtom.reportRead();
+    return super.hasError;
+  }
+
+  @override
+  set hasError(bool value) {
+    _$hasErrorAtom.reportWrite(value, super.hasError, () {
+      super.hasError = value;
+    });
+  }
+
   late final _$currentPageAtom =
       Atom(name: 'CardControllerBase.currentPage', context: context);
 
@@ -95,6 +111,7 @@ mixin _$CardController on CardControllerBase, Store {
 cards: ${cards},
 loadedCards: ${loadedCards},
 isLoading: ${isLoading},
+hasError: ${hasError},
 currentPage: ${currentPage}
     ''';
   }
