@@ -14,7 +14,10 @@ class BackendCardsRepository implements CardsRepository {
   Future<List<Card>> getCards({int page = 1}) async {
     final response = await _dio.get(
       UrlAddress.cards,
-      queryParameters: {'page': page},
+      queryParameters: {
+        'page': page,
+        'contains': 'imageUrl',
+      },
     );
 
     if (response.statusCode == 200) {
@@ -24,7 +27,6 @@ class BackendCardsRepository implements CardsRepository {
         return Card.fromJson(data);
       }).toList();
       return cards;
-
     } else {
       throw Exception('Failed to load cards: ${response.statusCode}');
     }

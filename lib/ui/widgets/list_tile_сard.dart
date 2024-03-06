@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mtg_picker/ui/resurces/app_colors.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 
@@ -42,22 +43,24 @@ class ListTileCard extends StatelessWidget {
             const SizedBox(
               width: 18,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  manaCostCard!,
-                  style: themeData.textTheme.titleSmall,
-                ),
-                Text(
-                  title,
-                  style: themeData.textTheme.titleLarge,
-                ),
-                Text(
-                  typeCard!,
-                  style: themeData.textTheme.titleMedium,
-                )
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    manaCostCard!,
+                    style: themeData.textTheme.titleSmall,
+                  ),
+                  Text(
+                    title,
+                    style: themeData.textTheme.titleLarge,
+                  ),
+                  Text(
+                    typeCard!,
+                    style: themeData.textTheme.titleMedium,
+                  )
+                ],
+              ),
             )
           ],
         ),
