@@ -38,7 +38,8 @@ void main() {
       expect(cardController.hasError, true);
     });
 
-    test('loadMoreCards should increment the page at the end of the scroll',
+    test(
+        'loadMoreCards should increment the currentPage at the end of the scroll',
         () async {
       //prep data
       final page = cardController.currentPage;
