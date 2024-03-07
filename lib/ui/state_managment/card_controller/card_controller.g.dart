@@ -25,6 +25,22 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
+  late final _$savedCardsAtom =
+      Atom(name: 'CardControllerBase.savedCards', context: context);
+
+  @override
+  ObservableList<Cards> get savedCards {
+    _$savedCardsAtom.reportRead();
+    return super.savedCards;
+  }
+
+  @override
+  set savedCards(ObservableList<Cards> value) {
+    _$savedCardsAtom.reportWrite(value, super.savedCards, () {
+      super.savedCards = value;
+    });
+  }
+
   late final _$isLoadingAtom =
       Atom(name: 'CardControllerBase.isLoading', context: context);
 
@@ -89,10 +105,25 @@ mixin _$CardController on CardControllerBase, Store {
     return _$loadMoreCardsAsyncAction.run(() => super.loadMoreCards());
   }
 
+  late final _$CardControllerBaseActionController =
+      ActionController(name: 'CardControllerBase', context: context);
+
+  @override
+  void filterCardsByNameContains(String text) {
+    final _$actionInfo = _$CardControllerBaseActionController.startAction(
+        name: 'CardControllerBase.filterCardsByNameContains');
+    try {
+      return super.filterCardsByNameContains(text);
+    } finally {
+      _$CardControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 cards: ${cards},
+savedCards: ${savedCards},
 isLoading: ${isLoading},
 hasError: ${hasError},
 currentPage: ${currentPage}

@@ -21,7 +21,7 @@ class CardDetailsPage extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.brown_0, width: 3),
+                border: Border.all(color: AppColors.brown_0, width: 5),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: ClipRRect(

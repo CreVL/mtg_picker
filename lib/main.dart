@@ -29,6 +29,7 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const Scaffold(
+        resizeToAvoidBottomInset: false,
         body: CardPage(),
       ),
     ),

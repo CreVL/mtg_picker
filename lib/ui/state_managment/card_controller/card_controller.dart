@@ -26,6 +26,9 @@ abstract class CardControllerBase with Store {
   ObservableList<Cards> cards = ObservableList<Cards>();
 
   @observable
+  ObservableList<Cards> savedCards = ObservableList<Cards>();
+
+  @observable
   bool isLoading = false;
 
   @observable
@@ -43,6 +46,7 @@ abstract class CardControllerBase with Store {
     } else if (eitherResult.isRight) {
       hasError = false;
       cards.addAll(eitherResult.right!);
+      savedCards = ObservableList.of(eitherResult.right!);
     }
     isLoading = false;
   }
@@ -56,6 +60,21 @@ abstract class CardControllerBase with Store {
       cards.addAll(eitherResult.right!);
     } else {
       hasError = true;
+    }
+  }
+
+  @action
+  void filterCardsByNameContains(String text) {
+    if (text.isEmpty || text.trim().isEmpty) {
+      cards = ObservableList.of(savedCards);
+    } else {
+      cards = ObservableList.of(
+        savedCards
+            .where(
+              (card) => card.name.toLowerCase().contains(text.toLowerCase()),
+            )
+            .toList(),
+      );
     }
   }
 }
