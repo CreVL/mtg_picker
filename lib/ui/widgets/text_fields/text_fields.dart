@@ -17,11 +17,10 @@ class TextFields {
       idleBackgroundColor: AppColors.brown_0,
       focusBackgroundColor: AppColors.brown_0,
       cursorColor: AppColors.brown_0,
-      hintText: 'Поиск',
+      hintText: "Search...",
       hintStyle: const TextStyle(fontFamily: 'serif'),
-      prefix: const Icon(
-        Icons.search,
-        color: AppColors.yellow,
+      prefix: const SizedBox(
+        width: 5,
       ),
       trailing: trailing,
       onSubmitted: onSubmitted,

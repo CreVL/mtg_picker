@@ -38,9 +38,9 @@ class SearchFieldPanel extends StatelessWidget {
               trailing: canClear
                   ? GestureDetector(
                       onTap: onClear,
-                      child: Icon(
+                      child: const Icon(
                         Icons.clear,
-                        color: AppColors.blue,
+                        color: AppColors.orange,
                       ),
                     )
                   : const SizedBox.shrink(),
@@ -53,8 +53,8 @@ class SearchFieldPanel extends StatelessWidget {
             onTap: onCancel,
             behavior: HitTestBehavior.translucent,
             child: Text(
-              "Отмена",
-              style: themeData.textTheme.titleLarge,
+              "Cancel",
+              style: themeData.textTheme.titleMedium,
             ),
           ),
         ],

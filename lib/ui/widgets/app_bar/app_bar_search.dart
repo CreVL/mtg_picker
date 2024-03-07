@@ -51,7 +51,7 @@ class AppBarSearch extends HookWidget {
                 )
               : Row(
                   children: [
-                    if (onBackTapped == null) ...[
+                    if (onBackTapped != null) ...[
                       const SizedBox(
                         width: 16,
                       ),
