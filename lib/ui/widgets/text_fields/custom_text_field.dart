@@ -66,7 +66,7 @@ class CustomTextField extends StatelessWidget {
     this.onSubmitted,
     this.onTap,
     this.keyboardType,
-  })  : assert(
+  }) : assert(
           errorMessageText == null ||
               errorMessageStyle != null && errorLabelStyle != null,
         );

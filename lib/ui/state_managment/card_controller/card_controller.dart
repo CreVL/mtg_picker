@@ -58,6 +58,7 @@ abstract class CardControllerBase with Store {
     if (eitherResult.isRight) {
       hasError = false;
       cards.addAll(eitherResult.right!);
+      savedCards.addAll(eitherResult.right!);
     } else {
       hasError = true;
     }
