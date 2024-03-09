@@ -23,10 +23,10 @@ abstract class CardControllerBase with Store {
   }
 
   @observable
-  ObservableList<Cards> cards = ObservableList<Cards>();
+  ObservableList<Cards>? cardsToShow;
 
   @observable
-  ObservableList<Cards> savedCards = ObservableList<Cards>();
+  ObservableList<Cards>? loadedCards;
 
   @observable
   bool isLoading = false;
@@ -40,42 +40,72 @@ abstract class CardControllerBase with Store {
   @action
   Future<void> loadCards() async {
     isLoading = true;
+
     final eitherResult = await cardsRepository.getCards();
+
     if (eitherResult.isLeft) {
       hasError = true;
     } else if (eitherResult.isRight) {
       hasError = false;
-      cards.addAll(eitherResult.right!);
-      savedCards = ObservableList.of(eitherResult.right!);
+      loadedCards = eitherResult.right?.asObservable();
+      cardsToShow = loadedCards;
     }
+
     isLoading = false;
   }
 
   @action
   Future<void> loadMoreCards() async {
     currentPage++;
-    final eitherResult = await cardsRepository.getCards(page: currentPage);
+
+    final eitherResult = await cardsRepository.getCards(
+      page: currentPage,
+    );
+
     if (eitherResult.isRight) {
       hasError = false;
-      cards.addAll(eitherResult.right!);
-      savedCards.addAll(eitherResult.right!);
-    } else {
-      hasError = true;
+      final loadedCards = eitherResult.right!;
+      cardsToShow?.addAll(loadedCards);
     }
   }
 
   @action
   void filterCardsByNameContains(String text) {
     if (text.isEmpty || text.trim().isEmpty) {
-      cards = ObservableList.of(savedCards);
+      cardsToShow = loadedCards;
     } else {
-      cards = ObservableList.of(
-        savedCards
-            .where(
-              (card) => card.name.toLowerCase().contains(text.toLowerCase()),
-            )
-            .toList(),
-      );
+      cardsToShow = loadedCards!
+          .where(
+            (card) => card.name.toLowerCase().contains(
+                  text.toLowerCase(),
+                ),
+          )
+          .toList()
+          .asObservable();
     }
   }
+
+  final List<Cards> mockedCards = [
+    const Cards(
+        name: 'Eleito da Ancestral',
+        manaCost: '{5}{W}{W}',
+        type: 'Creature — Human Cleric',
+        rarity: 'Uncommon',
+        imageUrl:
+            'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=148411&type=card'),
+    const Cards(
+        name: 'Spirit Link',
+        manaCost: '{W}',
+        type: 'Kreatur — Enge',
+        rarity: 'Common',
+        imageUrl:
+            'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=149934&type=card'),
+    const Cards(
+        name: 'Dia Sagrado',
+        manaCost: '{2}{W}',
+        type: 'Enchantment — Aura',
+        rarity: 'Rare',
+        imageUrl:
+            'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=149551&type=card'),
+  ];
 }

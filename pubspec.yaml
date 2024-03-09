@@ -46,6 +46,7 @@ dependencies:
   flutter_hooks: ^0.20.5
   mobx_codegen: ^2.6.0+1
   mockito: ^5.4.4
+  skeletonizer: ^1.1.0
 
 dev_dependencies:
   flutter_test:
