@@ -27,7 +27,7 @@ class CardPage extends HookWidget {
     final viewInsets = mediaQueryData.viewInsets;
     useEffect(() {
       controller.loadCards();
-    });
+    }, []);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

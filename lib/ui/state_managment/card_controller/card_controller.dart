@@ -40,9 +40,7 @@ abstract class CardControllerBase with Store {
   @action
   Future<void> loadCards() async {
     isLoading = true;
-
     final eitherResult = await cardsRepository.getCards();
-
     if (eitherResult.isLeft) {
       hasError = true;
     } else if (eitherResult.isRight) {
@@ -50,22 +48,17 @@ abstract class CardControllerBase with Store {
       loadedCards = eitherResult.right?.asObservable();
       cardsToShow = loadedCards;
     }
-
     isLoading = false;
   }
 
   @action
   Future<void> loadMoreCards() async {
     currentPage++;
-
-    final eitherResult = await cardsRepository.getCards(
-      page: currentPage,
-    );
-
+    final eitherResult = await cardsRepository.getCards(page: currentPage);
     if (eitherResult.isRight) {
-      hasError = false;
-      final loadedCards = eitherResult.right!;
-      cardsToShow?.addAll(loadedCards);
+      final newCards = eitherResult.right?.asObservable();
+      loadedCards?.addAll(newCards!);
+      cardsToShow = loadedCards;
     }
   }
 
@@ -97,14 +90,14 @@ abstract class CardControllerBase with Store {
         name: 'Spirit Link',
         manaCost: '{W}',
         type: 'Kreatur — Enge',
-        rarity: 'Common',
+        rarity: 'Rare',
         imageUrl:
             'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=149934&type=card'),
     const Cards(
-        name: 'Dia Sagrado',
+        name: 'Predatore Solcacielo',
         manaCost: '{2}{W}',
         type: 'Enchantment — Aura',
-        rarity: 'Rare',
+        rarity: 'Common',
         imageUrl:
             'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=149551&type=card'),
   ];
