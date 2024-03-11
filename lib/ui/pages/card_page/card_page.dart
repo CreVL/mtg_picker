@@ -50,7 +50,7 @@ class CardPage extends HookWidget {
                 child: Column(
                   children: [
                     AppBarSearch(
-                      isFavorite: false,
+                      isFavorite: cardController.isFiltered,
                       onFavoriteTapped: () {
                         cardController.toggleFavoritesFilter();
                       },
