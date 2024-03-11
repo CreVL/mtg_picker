@@ -7,6 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
 import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart';
+import 'package:mtg_picker/internal/hooks/effect_once_hook.dart';
 import 'package:mtg_picker/ui/controllers/favorite_controller/favorite_controller.dart';
 import 'package:mtg_picker/ui/pages/card_details_page/card_details_page.dart';
 import 'package:mtg_picker/ui/state_managment/card_controller/card_controller.dart';
@@ -31,9 +32,9 @@ class CardPage extends HookWidget {
     final mediaQueryData = MediaQuery.of(context);
     final viewInsets = mediaQueryData.viewInsets;
 
-    useEffect(() {
+    useEffectOnce(() {
       cardController.loadCards();
-    }, []);
+    });
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -68,15 +69,17 @@ class CardPage extends HookWidget {
                           if (!cardController.isLoading) {
                             if (cardController.hasError) {
                               return Center(
-                                child: Text('Error loading cards',
-                                    style: themeData.textTheme.titleSmall),
+                                child: Text(
+                                  'Error loading cards',
+                                  style: themeData.textTheme.titleMedium,
+                                ),
                               );
                             }
                             if (cardController.cardsToShow == null ||
                                 cardController.cardsToShow!.isEmpty) {
                               return Center(
                                 child: Text('No cards available',
-                                    style: themeData.textTheme.titleSmall),
+                                    style: themeData.textTheme.titleMedium),
                               );
                             }
                           }
@@ -130,7 +133,8 @@ class CardPage extends HookWidget {
                                                 ),
                                               );
                                             },
-                                            isFavorite: true,
+                                            isFavorite:
+                                                cardController.isFiltered,
                                           ),
                                         );
                                       } else {
