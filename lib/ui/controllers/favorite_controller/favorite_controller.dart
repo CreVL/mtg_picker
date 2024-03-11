@@ -67,8 +67,8 @@ abstract class _FavoriteControllerBase with Store {
     final successEither = await favoriteCardRepository.deleteFavoriteCard(uuid);
     final success = successEither.right;
     if (success ?? false) {
-      final routeIndex = cards.indexWhere((element) => element.uuid == uuid);
-      cards.removeAt(routeIndex);
+      final cardIndex = cards.indexWhere((element) => element.uuid == uuid);
+      cards.removeAt(cardIndex);
     }
     return;
   }
