@@ -6,6 +6,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
+import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart';
+import 'package:mtg_picker/ui/controllers/favorite_controller/favorite_controller.dart';
 import 'package:mtg_picker/ui/pages/card_details_page/card_details_page.dart';
 import 'package:mtg_picker/ui/state_managment/card_controller/card_controller.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
@@ -20,13 +22,17 @@ class CardPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = useMemoized(
-      () => CardController(GetIt.I<CardsRepository>()),
+    final cardController = useMemoized(
+      () => CardController(
+        GetIt.I<CardsRepository>(),
+        GetIt.I<FavoriteCardRepository>(),
+      ),
     );
     final mediaQueryData = MediaQuery.of(context);
     final viewInsets = mediaQueryData.viewInsets;
+
     useEffect(() {
-      controller.loadCards();
+      cardController.loadCards();
     }, []);
 
     return Scaffold(
@@ -45,8 +51,10 @@ class CardPage extends HookWidget {
                   children: [
                     AppBarSearch(
                       isFavorite: false,
-                      onFavoriteTapped: () {},
-                      searchChanged: controller.filterCardsByNameContains,
+                      onFavoriteTapped: () {
+                        cardController.toggleFavoritesFilter();
+                      },
+                      searchChanged: cardController.filterCardsByNameContains,
                       title: Text(
                         'Cards',
                         textAlign: TextAlign.center,
@@ -57,15 +65,15 @@ class CardPage extends HookWidget {
                     Expanded(
                       child: Observer(
                         builder: (context) {
-                          if (!controller.isLoading) {
-                            if (controller.hasError) {
+                          if (!cardController.isLoading) {
+                            if (cardController.hasError) {
                               return Center(
                                 child: Text('Error loading cards',
                                     style: themeData.textTheme.titleSmall),
                               );
                             }
-                            if (controller.cardsToShow == null ||
-                                controller.cardsToShow!.isEmpty) {
+                            if (cardController.cardsToShow == null ||
+                                cardController.cardsToShow!.isEmpty) {
                               return Center(
                                 child: Text('No cards available',
                                     style: themeData.textTheme.titleSmall),
@@ -73,19 +81,20 @@ class CardPage extends HookWidget {
                             }
                           }
                           return Skeletonizer(
-                            enabled: controller.isLoading,
+                            enabled: cardController.isLoading,
                             ignoreContainers: true,
-                            child: controller.isLoading
+                            child: cardController.isLoading
                                 ? ListView.builder(
                                     physics: const BouncingScrollPhysics(),
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 16,
                                       vertical: 16,
                                     ),
-                                    itemCount: controller.mockedCards.length,
+                                    itemCount:
+                                        cardController.mockedCards.length,
                                     itemBuilder: (context, index) {
                                       final card =
-                                          controller.mockedCards[index];
+                                          cardController.mockedCards[index];
                                       return Column(
                                         children: [
                                           ListTileCard(
@@ -98,14 +107,14 @@ class CardPage extends HookWidget {
                                     },
                                   )
                                 : ListView.separated(
-                                    controller: controller.scrollController,
+                                    controller: cardController.scrollController,
                                     itemCount:
-                                        controller.cardsToShow!.length + 1,
+                                        cardController.cardsToShow!.length + 1,
                                     itemBuilder: (context, index) {
                                       if (index <
-                                          controller.cardsToShow!.length) {
+                                          cardController.cardsToShow!.length) {
                                         final card =
-                                            controller.cardsToShow![index];
+                                            cardController.cardsToShow![index];
                                         return Padding(
                                           padding:
                                               const EdgeInsets.only(left: 16),

@@ -3,12 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mtg_picker/data/get_it_initializer.dart';
+import 'package:mtg_picker/data/hive_boxes/hive_boxes.dart';
 import 'package:mtg_picker/ui/pages/card_page/card_page.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   GetItInitializer.setupAll();
+  await HiveBoxes.initialize();
   runApp(const MainApp());
 }
 

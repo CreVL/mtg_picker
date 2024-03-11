@@ -73,6 +73,22 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
+  late final _$isFilteredAtom =
+      Atom(name: 'CardControllerBase.isFiltered', context: context);
+
+  @override
+  bool get isFiltered {
+    _$isFilteredAtom.reportRead();
+    return super.isFiltered;
+  }
+
+  @override
+  set isFiltered(bool value) {
+    _$isFilteredAtom.reportWrite(value, super.isFiltered, () {
+      super.isFiltered = value;
+    });
+  }
+
   late final _$currentPageAtom =
       Atom(name: 'CardControllerBase.currentPage', context: context);
 
@@ -105,6 +121,25 @@ mixin _$CardController on CardControllerBase, Store {
     return _$loadMoreCardsAsyncAction.run(() => super.loadMoreCards());
   }
 
+  late final _$toggleFavoritesFilterAsyncAction =
+      AsyncAction('CardControllerBase.toggleFavoritesFilter', context: context);
+
+  @override
+  Future<void> toggleFavoritesFilter() {
+    return _$toggleFavoritesFilterAsyncAction
+        .run(() => super.toggleFavoritesFilter());
+  }
+
+  late final _$buildCardsDependOnFilterAsyncAction = AsyncAction(
+      'CardControllerBase.buildCardsDependOnFilter',
+      context: context);
+
+  @override
+  Future<void> buildCardsDependOnFilter() {
+    return _$buildCardsDependOnFilterAsyncAction
+        .run(() => super.buildCardsDependOnFilter());
+  }
+
   late final _$CardControllerBaseActionController =
       ActionController(name: 'CardControllerBase', context: context);
 
@@ -126,6 +161,7 @@ cardsToShow: ${cardsToShow},
 loadedCards: ${loadedCards},
 isLoading: ${isLoading},
 hasError: ${hasError},
+isFiltered: ${isFiltered},
 currentPage: ${currentPage}
     ''';
   }

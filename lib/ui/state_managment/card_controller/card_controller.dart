@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
+import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart';
 import 'package:mtg_picker/domain/entities/card/card.dart';
 
 part 'card_controller.g.dart';
@@ -9,10 +10,14 @@ class CardController = CardControllerBase with _$CardController;
 
 abstract class CardControllerBase with Store {
   final CardsRepository cardsRepository;
+  final FavoriteCardRepository favoriteCardRepository;
 
   final ScrollController scrollController = ScrollController();
 
-  CardControllerBase(this.cardsRepository) {
+  CardControllerBase(
+    this.cardsRepository,
+    this.favoriteCardRepository,
+  ) {
     scrollController.addListener(_scrolling);
   }
 
@@ -33,6 +38,9 @@ abstract class CardControllerBase with Store {
 
   @observable
   bool hasError = false;
+
+  @observable
+  bool isFiltered = false;
 
   @observable
   int currentPage = 1;
@@ -75,6 +83,33 @@ abstract class CardControllerBase with Store {
           )
           .toList()
           .asObservable();
+    }
+  }
+
+  @action
+  Future<void> toggleFavoritesFilter() async {
+    isFiltered = !isFiltered;
+    await buildCardsDependOnFilter();
+  }
+
+  @action
+  Future<void> buildCardsDependOnFilter() async {
+    if (isFiltered) {
+      final favoriteCardsResult =
+          await favoriteCardRepository.getFavoriteCards();
+      favoriteCardsResult.resolve(
+        (error) {},
+        (favoriteCards) {
+          final favoriteIds =
+              favoriteCards.map((favorite) => favorite.card.name).toSet();
+          cardsToShow = loadedCards!
+              .where((card) => favoriteIds.contains(card.name))
+              .toList()
+              .asObservable();
+        },
+      );
+    } else {
+      cardsToShow = loadedCards;
     }
   }
 
