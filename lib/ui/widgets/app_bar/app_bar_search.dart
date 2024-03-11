@@ -10,6 +10,8 @@ class AppBarSearch extends HookWidget {
   final bool canSearch;
   final Function(String text)? searchChanged;
   final Function()? onBackTapped;
+  final Function()? onFavoriteTapped;
+  final bool isFavorite;
 
   const AppBarSearch({
     super.key,
@@ -17,6 +19,8 @@ class AppBarSearch extends HookWidget {
     this.onBackTapped,
     required this.searchChanged,
     this.canSearch = true,
+    this.onFavoriteTapped,
+    required this.isFavorite,
   });
 
   @override
@@ -51,14 +55,16 @@ class AppBarSearch extends HookWidget {
                 )
               : Row(
                   children: [
-                    if (onBackTapped != null) ...[
+                    if (onFavoriteTapped != null) ...[
                       const SizedBox(
                         width: 16,
                       ),
                       GestureDetector(
-                        onTap: onBackTapped,
-                        child: const Icon(
-                          Icons.arrow_back,
+                        onTap: onFavoriteTapped,
+                        child: Icon(
+                          isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
                           color: AppColors.orange,
                           size: 24,
                         ),
@@ -66,10 +72,7 @@ class AppBarSearch extends HookWidget {
                       const SizedBox(
                         width: 16,
                       ),
-                    ] else
-                      const SizedBox(
-                        width: 56,
-                      ),
+                    ],
                     Expanded(
                       child: title,
                     ),

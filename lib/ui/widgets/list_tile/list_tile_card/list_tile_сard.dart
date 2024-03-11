@@ -7,11 +7,13 @@ import 'package:mtg_picker/ui/theme/theme.dart';
 class ListTileCard extends StatelessWidget {
   final Cards card;
   final VoidCallback onTap;
+  final bool isFavorite;
 
   const ListTileCard({
     super.key,
     required this.onTap,
     required this.card,
+    required this.isFavorite,
   });
 
   @override
@@ -54,7 +56,18 @@ class ListTileCard extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: Icon(
+                isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                color: AppColors.orange,
+                size: 24,
+              ),
+            ),
+            const SizedBox(
+              width: 18,
+            ),
           ],
         ),
       ),

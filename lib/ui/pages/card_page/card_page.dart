@@ -44,6 +44,8 @@ class CardPage extends HookWidget {
                 child: Column(
                   children: [
                     AppBarSearch(
+                      isFavorite: false,
+                      onFavoriteTapped: () {},
                       searchChanged: controller.filterCardsByNameContains,
                       title: Text(
                         'Cards',
@@ -89,6 +91,7 @@ class CardPage extends HookWidget {
                                           ListTileCard(
                                             card: card,
                                             onTap: () {},
+                                            isFavorite: true,
                                           ),
                                         ],
                                       );
@@ -118,6 +121,7 @@ class CardPage extends HookWidget {
                                                 ),
                                               );
                                             },
+                                            isFavorite: true,
                                           ),
                                         );
                                       } else {
