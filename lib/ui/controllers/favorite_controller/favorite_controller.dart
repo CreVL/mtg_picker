@@ -49,7 +49,7 @@ abstract class _FavoriteControllerBase with Store {
     isLoading = false;
   }
 
-  FavoriteCard? findFavoriteRoute(Cards card) {
+  FavoriteCard? findFavoriteCard(Cards card) {
     return cards.where((element) => element.card.name == card.name).firstOrNull;
   }
 
