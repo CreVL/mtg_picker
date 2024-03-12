@@ -57,6 +57,22 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
+  late final _$isLoadingMoreAtom =
+      Atom(name: 'CardControllerBase.isLoadingMore', context: context);
+
+  @override
+  bool get isLoadingMore {
+    _$isLoadingMoreAtom.reportRead();
+    return super.isLoadingMore;
+  }
+
+  @override
+  set isLoadingMore(bool value) {
+    _$isLoadingMoreAtom.reportWrite(value, super.isLoadingMore, () {
+      super.isLoadingMore = value;
+    });
+  }
+
   late final _$hasErrorAtom =
       Atom(name: 'CardControllerBase.hasError', context: context);
 
@@ -102,6 +118,22 @@ mixin _$CardController on CardControllerBase, Store {
   set currentPage(int value) {
     _$currentPageAtom.reportWrite(value, super.currentPage, () {
       super.currentPage = value;
+    });
+  }
+
+  late final _$isSearchingAtom =
+      Atom(name: 'CardControllerBase.isSearching', context: context);
+
+  @override
+  bool get isSearching {
+    _$isSearchingAtom.reportRead();
+    return super.isSearching;
+  }
+
+  @override
+  set isSearching(bool value) {
+    _$isSearchingAtom.reportWrite(value, super.isSearching, () {
+      super.isSearching = value;
     });
   }
 
@@ -160,9 +192,11 @@ mixin _$CardController on CardControllerBase, Store {
 cardsToShow: ${cardsToShow},
 loadedCards: ${loadedCards},
 isLoading: ${isLoading},
+isLoadingMore: ${isLoadingMore},
 hasError: ${hasError},
 isFiltered: ${isFiltered},
-currentPage: ${currentPage}
+currentPage: ${currentPage},
+isSearching: ${isSearching}
     ''';
   }
 }

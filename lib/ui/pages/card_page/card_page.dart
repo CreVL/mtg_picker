@@ -137,7 +137,8 @@ class CardPage extends HookWidget {
                                                 cardController.isFiltered,
                                           ),
                                         );
-                                      } else {
+                                      } else if (cardController.isLoadingMore ==
+                                          true) {
                                         return const Padding(
                                           padding: EdgeInsets.all(16.0),
                                           child: Center(
@@ -145,6 +146,7 @@ class CardPage extends HookWidget {
                                                   CircularProgressIndicator()),
                                         );
                                       }
+                                      return null;
                                     },
                                     separatorBuilder: (context, index) {
                                       return const Divider(
