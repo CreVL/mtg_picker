@@ -53,7 +53,7 @@ abstract class CardControllerBase with Store {
   bool isSearching = false;
 
   @action
-  Future<void> loadCards() async {
+  Future loadCards() async {
     isLoading = true;
     final eitherResult = await cardsRepository.getCards();
     if (eitherResult.isLeft) {
@@ -67,7 +67,7 @@ abstract class CardControllerBase with Store {
   }
 
   @action
-  Future<void> loadMoreCards() async {
+  Future loadMoreCards() async {
     currentPage++;
     final eitherResult = await cardsRepository.getCards(page: currentPage);
     if (eitherResult.isRight) {
@@ -98,14 +98,14 @@ abstract class CardControllerBase with Store {
   }
 
   @action
-  Future<void> toggleFavoritesFilter() async {
+  Future toggleFavoritesFilter() async {
     isLoadingMore = isFiltered;
     isFiltered = !isFiltered;
     await buildCardsDependOnFilter();
   }
 
   @action
-  Future<void> buildCardsDependOnFilter() async {
+  Future buildCardsDependOnFilter() async {
     if (isFiltered) {
       final favoriteCardsResult =
           await favoriteCardRepository.getFavoriteCards();

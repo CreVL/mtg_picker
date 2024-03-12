@@ -141,7 +141,7 @@ mixin _$CardController on CardControllerBase, Store {
       AsyncAction('CardControllerBase.loadCards', context: context);
 
   @override
-  Future<void> loadCards() {
+  Future<dynamic> loadCards() {
     return _$loadCardsAsyncAction.run(() => super.loadCards());
   }
 
@@ -149,7 +149,7 @@ mixin _$CardController on CardControllerBase, Store {
       AsyncAction('CardControllerBase.loadMoreCards', context: context);
 
   @override
-  Future<void> loadMoreCards() {
+  Future<dynamic> loadMoreCards() {
     return _$loadMoreCardsAsyncAction.run(() => super.loadMoreCards());
   }
 
@@ -157,7 +157,7 @@ mixin _$CardController on CardControllerBase, Store {
       AsyncAction('CardControllerBase.toggleFavoritesFilter', context: context);
 
   @override
-  Future<void> toggleFavoritesFilter() {
+  Future<dynamic> toggleFavoritesFilter() {
     return _$toggleFavoritesFilterAsyncAction
         .run(() => super.toggleFavoritesFilter());
   }
@@ -167,7 +167,7 @@ mixin _$CardController on CardControllerBase, Store {
       context: context);
 
   @override
-  Future<void> buildCardsDependOnFilter() {
+  Future<dynamic> buildCardsDependOnFilter() {
     return _$buildCardsDependOnFilterAsyncAction
         .run(() => super.buildCardsDependOnFilter());
   }
