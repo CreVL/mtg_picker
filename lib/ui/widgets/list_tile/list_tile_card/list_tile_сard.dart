@@ -35,6 +35,7 @@ class ListTileCard extends HookWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: onTap,
         child: Row(
           children: [
