@@ -72,7 +72,7 @@ abstract class CardControllerBase with Store {
     final eitherResult = await cardsRepository.getCards(page: currentPage);
     if (eitherResult.isRight) {
       final newCards = eitherResult.right?.asObservable();
-      if (isLoadingMore == true) {
+      if (isLoadingMore) {
         loadedCards?.addAll(newCards!);
         cardsToShow = loadedCards;
       }
@@ -99,7 +99,7 @@ abstract class CardControllerBase with Store {
 
   @action
   Future<void> toggleFavoritesFilter() async {
-    isLoadingMore = false;
+    isLoadingMore = isFiltered;
     isFiltered = !isFiltered;
     await buildCardsDependOnFilter();
   }
