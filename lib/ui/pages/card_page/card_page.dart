@@ -7,7 +7,7 @@ import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
 import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart';
 import 'package:mtg_picker/internal/hooks/effect_once_hook.dart';
 import 'package:mtg_picker/ui/pages/card_details_page/card_details_page.dart';
-import 'package:mtg_picker/ui/state_managment/card_controller/card_controller.dart';
+import 'package:mtg_picker/ui/state_management/card_controller/card_controller.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 import 'package:mtg_picker/ui/widgets/app_bar/app_bar_search.dart';
 import 'package:mtg_picker/ui/widgets/list_tile/list_tile_card/list_tile_%D1%81ard.dart';

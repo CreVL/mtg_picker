@@ -6,7 +6,7 @@ import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
 import 'package:mtg_picker/application/repository/repository_error.dart';
 import 'package:mtg_picker/domain/entities/card/card.dart';
 import 'package:mtg_picker/internal/entities/either.dart';
-import 'package:mtg_picker/ui/state_managment/card_controller/card_controller.dart';
+import 'package:mtg_picker/ui/state_management/card_controller/card_controller.dart';
 
 import '../../../internal/mocks/callable/callable.mocks.dart';
 @GenerateNiceMocks([
