@@ -3,8 +3,10 @@ import 'package:mobx/mobx.dart' as mobx;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
+import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart';
 import 'package:mtg_picker/application/repository/repository_error.dart';
 import 'package:mtg_picker/domain/entities/card/card.dart';
+import 'package:mtg_picker/domain/entities/favorite/favorite_card/favorite_card.dart';
 import 'package:mtg_picker/internal/entities/either.dart';
 import 'package:mtg_picker/ui/state_management/card_controller/card_controller.dart';
 
@@ -14,17 +16,23 @@ import '../../../internal/mocks/callable/callable.mocks.dart';
   MockSpec<Either<RepositoryError, List<Cards>>>(),
   MockSpec<RepositoryError>(),
   MockSpec<Cards>(),
+  MockSpec<FavoriteCardRepository>(),
 ])
 import 'card_controller_test.mocks.dart';
 
 void main() {
   group('card_controller tests---', () {
     late MockCardsRepository cardsRepository;
+    late MockFavoriteCardRepository favoriteCardRepository;
     late CardController cardController;
 
     setUp(() {
       cardsRepository = MockCardsRepository();
-      cardController = CardController(cardsRepository);
+      favoriteCardRepository = MockFavoriteCardRepository();
+      cardController = CardController(
+        cardsRepository,
+        favoriteCardRepository,
+      );
     });
 
     test('getCards should set hasError to true on error', () async {
@@ -68,6 +76,23 @@ void main() {
       await cardController.loadCards();
       //check
       verifyInOrder([callable.call(true), callable.call(false)]);
+    });
+    test(
+        'filterCardsByNameContains should filter loadedCards with passed string'
+        'and set filtered value to cardsToShow field', () async {
+      //prep data
+      final card1 = MockCards();
+      final card2 = MockCards();
+      final card3 = MockCards();
+      when(card1.name).thenReturn('name test 1');
+      when(card2.name).thenReturn('name test 2');
+      when(card3.name).thenReturn('name test 3');
+      cardController.loadedCards =
+          mobx.ObservableList.of([card1, card2, card3]);
+      //manipulation
+      cardController.filterCardsByNameContains('name test 2');
+      //check
+      expect(cardController.cardsToShow, containsAll([card2]));
     });
   });
 }
