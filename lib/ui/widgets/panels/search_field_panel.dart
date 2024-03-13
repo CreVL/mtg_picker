@@ -37,6 +37,7 @@ class SearchFieldPanel extends StatelessWidget {
               onChanged: onChanged,
               trailing: canClear
                   ? GestureDetector(
+                      behavior: HitTestBehavior.translucent,
                       onTap: onClear,
                       child: const Icon(
                         Icons.clear,
