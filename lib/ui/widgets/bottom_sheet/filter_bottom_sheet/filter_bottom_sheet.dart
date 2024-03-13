@@ -4,7 +4,9 @@ import 'package:mtg_picker/ui/theme/theme.dart';
 import 'package:mtg_picker/ui/widgets/bottom_sheet/bottom_sheet_hat.dart';
 
 class FilterBottomSheet extends StatelessWidget {
-  const FilterBottomSheet({super.key});
+  final Function(Color color)? filterChanged;
+
+  const FilterBottomSheet({super.key, this.filterChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,16 @@ class FilterBottomSheet extends StatelessWidget {
                       size: 24,
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 20.0),
+              Row(
+                children: [
+                  Text(
+                    'ManaCost:',
+                    style: themeData.textTheme.titleLarge,
+                  ),
+                  const SizedBox(width: 10),
                 ],
               ),
               const SizedBox(height: 20.0),
