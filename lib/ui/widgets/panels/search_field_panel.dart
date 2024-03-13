@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mtg_picker/ui/resurces/app_colors.dart';
+import 'package:mtg_picker/ui/resources/app_colors.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 import 'package:mtg_picker/ui/widgets/text_fields/text_fields.dart';
 

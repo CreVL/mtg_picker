@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtg_picker/domain/entities/card/card.dart';
-import 'package:mtg_picker/ui/resurces/app_colors.dart';
+import 'package:mtg_picker/ui/resources/app_colors.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 
 class CardDetailsPage extends StatelessWidget {

@@ -1,5 +1,4 @@
 import 'package:fake_async/fake_async.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mobx/mobx.dart' as mobx;
@@ -97,40 +96,6 @@ void main() {
     });
 
     test(
-        'deleteFavoriteCard should call FavoriteCardRepository.deleteFavoriteCard and remove card if result is true',
-        () async {
-      //prep data
-      when(favoriteCardRepository.deleteFavoriteCard(cardUuid))
-          .thenAnswer((_) async => Either.right(true));
-      //manipulation
-      fakeAsync((async) {
-        controller.loadFavorites();
-        async.elapse(delay);
-      });
-      await controller.deleteFavoriteCard(cardUuid);
-      //check
-      verify(favoriteCardRepository.deleteFavoriteCard(cardUuid));
-      expect(controller.cards, []);
-    });
-
-    test(
-        "deleteFavoriteCard should call FavoriteCardRepository.deleteFavoriteCard and don't remove card if result is false",
-        () async {
-      //prep data
-      when(favoriteCardRepository.deleteFavoriteCard(cardUuid))
-          .thenAnswer((_) async => Either.right(false));
-      //manipulation
-      fakeAsync((async) {
-        controller.loadFavorites();
-        async.elapse(delay);
-      });
-      await controller.deleteFavoriteCard(cardUuid);
-      //check
-      verify(favoriteCardRepository.deleteFavoriteCard(cardUuid));
-      expect(controller.cards, [card]);
-    });
-
-    test(
         "addFavoriteCard should call FavoriteCardRepository.createFavoriteCard with card",
         () async {
       //prep data
@@ -166,6 +131,40 @@ void main() {
       await controller.addFavoriteCard(mockCard);
       //check
       expect(controller.cards, contains(mockFavoriteCard));
+    });
+
+    test(
+        'deleteFavoriteCard should call FavoriteCardRepository.deleteFavoriteCard and remove card if result is true',
+        () async {
+      //prep data
+      when(favoriteCardRepository.deleteFavoriteCard(cardUuid))
+          .thenAnswer((_) async => Either.right(true));
+      //manipulation
+      fakeAsync((async) {
+        controller.loadFavorites();
+        async.elapse(delay);
+      });
+      await controller.deleteFavoriteCard(cardUuid);
+      //check
+      verify(favoriteCardRepository.deleteFavoriteCard(cardUuid));
+      expect(controller.cards, []);
+    });
+
+    test(
+        "deleteFavoriteCard should call FavoriteCardRepository.deleteFavoriteCard and don't remove card if result is false",
+        () async {
+      //prep data
+      when(favoriteCardRepository.deleteFavoriteCard(cardUuid))
+          .thenAnswer((_) async => Either.right(false));
+      //manipulation
+      fakeAsync((async) {
+        controller.loadFavorites();
+        async.elapse(delay);
+      });
+      await controller.deleteFavoriteCard(cardUuid);
+      //check
+      verify(favoriteCardRepository.deleteFavoriteCard(cardUuid));
+      expect(controller.cards, [card]);
     });
   });
 }
