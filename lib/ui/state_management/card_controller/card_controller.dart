@@ -98,6 +98,22 @@ abstract class CardControllerBase with Store {
   }
 
   @action
+  void filterCardsByManaColor(String color) {
+    isSearching = color.isNotEmpty;
+    if (color.isEmpty || color.trim().isEmpty) {
+      cardsToShow = loadedCards;
+    } else {
+      cardsToShow = loadedCards!
+          .where(
+            (card) => card.manaCost.contains(color),
+          )
+          .toList()
+          .asObservable();
+    }
+    isLoadingMore = !isSearching;
+  }
+
+  @action
   Future toggleFavoritesFilter() async {
     isLoadingMore = isFiltered;
     isFiltered = !isFiltered;

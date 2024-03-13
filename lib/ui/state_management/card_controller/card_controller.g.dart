@@ -187,6 +187,17 @@ mixin _$CardController on CardControllerBase, Store {
   }
 
   @override
+  void filterCardsByManaColor(String color) {
+    final _$actionInfo = _$CardControllerBaseActionController.startAction(
+        name: 'CardControllerBase.filterCardsByManaColor');
+    try {
+      return super.filterCardsByManaColor(color);
+    } finally {
+      _$CardControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 cardsToShow: ${cardsToShow},
