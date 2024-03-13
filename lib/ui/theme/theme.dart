@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mtg_picker/ui/resurces/app_colors.dart';
+import 'package:mtg_picker/ui/resources/app_colors.dart';
 
 final themeData = ThemeData(
   primaryColor: AppColors.orange,
