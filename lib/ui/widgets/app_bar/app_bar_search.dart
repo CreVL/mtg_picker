@@ -45,8 +45,8 @@ class AppBarSearch extends HookWidget {
                       child: SearchFieldPanel(
                         textEditingController:
                             appBarSearchController.textEditingController,
-                        onChanged: appBarSearchController.textChanged,
-                        onClear: appBarSearchController.cleanSearchField,
+                        onChanged: appBarSearchController.textUpdated,
+                        onClear: appBarSearchController.clearSearchField,
                         onCancel: appBarSearchController.toggleSearchActivated,
                         canClear: appBarSearchController.canCleanSearch,
                       ),

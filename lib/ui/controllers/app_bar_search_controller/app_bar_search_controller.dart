@@ -21,14 +21,14 @@ abstract class _AppBarSearchControllerBase with Store {
   TextEditingController textEditingController = TextEditingController();
 
   @action
-  void cleanSearchField() {
+  void clearSearchField() {
     canCleanSearch = false;
     textEditingController.clear();
     searchChanged?.call(textEditingController.text);
   }
 
   @action
-  void textChanged(String text) {
+  void textUpdated(String text) {
     canCleanSearch = textEditingController.text.isNotEmpty;
     searchChanged?.call(text);
   }
@@ -37,7 +37,7 @@ abstract class _AppBarSearchControllerBase with Store {
   void toggleSearchActivated() {
     isSearchActivated = !isSearchActivated;
     if (!isSearchActivated) {
-      cleanSearchField();
+      clearSearchField();
     }
   }
 }

@@ -45,22 +45,22 @@ mixin _$AppBarSearchController on _AppBarSearchControllerBase, Store {
       ActionController(name: '_AppBarSearchControllerBase', context: context);
 
   @override
-  void cleanSearchField() {
+  void clearSearchField() {
     final _$actionInfo = _$_AppBarSearchControllerBaseActionController
-        .startAction(name: '_AppBarSearchControllerBase.cleanSearchField');
+        .startAction(name: '_AppBarSearchControllerBase.clearSearchField');
     try {
-      return super.cleanSearchField();
+      return super.clearSearchField();
     } finally {
       _$_AppBarSearchControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void textChanged(String text) {
+  void textUpdated(String text) {
     final _$actionInfo = _$_AppBarSearchControllerBaseActionController
-        .startAction(name: '_AppBarSearchControllerBase.textChanged');
+        .startAction(name: '_AppBarSearchControllerBase.textUpdated');
     try {
-      return super.textChanged(text);
+      return super.textUpdated(text);
     } finally {
       _$_AppBarSearchControllerBaseActionController.endAction(_$actionInfo);
     }
