@@ -128,25 +128,28 @@ abstract class CardControllerBase with Store {
 
   final List<Cards> mockedCards = [
     const Cards(
-        name: 'Eleito da Ancestral',
-        manaCost: '{5}{W}{W}',
-        type: 'Creature — Human Cleric',
-        rarity: 'Uncommon',
-        imageUrl:
-            'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=148411&type=card'),
+      name: 'Eleito da Ancestral',
+      manaCost: '{5}{W}{W}',
+      type: 'Creature — Human Cleric',
+      rarity: 'Uncommon',
+      imageUrl:
+          'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=148411&type=card',
+    ),
     const Cards(
-        name: 'Spirit Link',
-        manaCost: '{W}',
-        type: 'Kreatur — Enge',
-        rarity: 'Rare',
-        imageUrl:
-            'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=149934&type=card'),
+      name: 'Spirit Link',
+      manaCost: '{W}',
+      type: 'Kreatur — Enge',
+      rarity: 'Rare',
+      imageUrl:
+          'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=149934&type=card',
+    ),
     const Cards(
-        name: 'Predatore Solcacielo',
-        manaCost: '{2}{W}',
-        type: 'Enchantment — Aura',
-        rarity: 'Common',
-        imageUrl:
-            'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=149551&type=card'),
+      name: 'Predatore Solcacielo',
+      manaCost: '{2}{W}',
+      type: 'Enchantment — Aura',
+      rarity: 'Common',
+      imageUrl:
+          'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=149551&type=card',
+    ),
   ];
 }
