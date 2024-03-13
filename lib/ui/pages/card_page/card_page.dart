@@ -74,7 +74,9 @@ class CardPage extends HookWidget {
                           showModalBottomSheet(
                             context: context,
                             builder: (BuildContext context) {
-                              return const FilterBottomSheet();
+                              return const FilterBottomSheet(
+                                  // filterChanged: cardController.filterCards,
+                                  );
                             },
                           );
                         },
