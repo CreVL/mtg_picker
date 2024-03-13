@@ -10,8 +10,11 @@ import 'package:mtg_picker/ui/pages/card_details_page/card_details_page.dart';
 import 'package:mtg_picker/ui/state_management/card_controller/card_controller.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 import 'package:mtg_picker/ui/widgets/app_bar/app_bar_search.dart';
+import 'package:mtg_picker/ui/widgets/bottom_sheet/filter_bottom_sheet/filter_bottom_sheet.dart';
 import 'package:mtg_picker/ui/widgets/list_tile/list_tile_card/list_tile_card.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
+import '../../resources/app_colors.dart';
 
 class CardPage extends HookWidget {
   const CardPage({super.key});
@@ -60,6 +63,38 @@ class CardPage extends HookWidget {
                           overflow: TextOverflow.ellipsis,
                           style: themeData.textTheme.titleLarge,
                         ),
+                      ),
+                      const Divider(
+                        height: 2,
+                        color: Colors.brown,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const FilterBottomSheet();
+                            },
+                          );
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.filter_list_sharp,
+                                color: AppColors.orange,
+                                size: 24,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        height: 2,
+                        color: Colors.brown,
                       ),
                       Expanded(
                         child: Observer(

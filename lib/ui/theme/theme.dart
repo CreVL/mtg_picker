@@ -4,8 +4,11 @@ import 'package:mtg_picker/ui/resources/app_colors.dart';
 final themeData = ThemeData(
   primaryColor: AppColors.orange,
   scaffoldBackgroundColor: AppColors.brown_1,
+  bottomSheetTheme: const BottomSheetThemeData(
+    backgroundColor: AppColors.brown_1,
+  ),
   colorScheme: ColorScheme.fromSeed(
-    seedColor: AppColors.brown_0,
+    seedColor: AppColors.brown_1,
     brightness: Brightness.dark,
   ),
   textTheme: const TextTheme(
