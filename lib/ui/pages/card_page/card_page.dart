@@ -56,7 +56,7 @@ class CardPage extends HookWidget {
                         onFavoriteTapped: () {
                           cardController.toggleFavoritesFilter();
                         },
-                        searchChanged: cardController.filterCardsByNameContains,
+                        searchChanged: cardController.filterCardsByNameSearch,
                         title: Text(
                           'Cards',
                           textAlign: TextAlign.center,
@@ -83,16 +83,22 @@ class CardPage extends HookWidget {
                             },
                           );
                         },
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.filter_list_sharp,
-                                color: AppColors.orange,
-                                size: 24,
-                              ),
+                              cardController.isColorFiltered
+                                  ? const Icon(
+                                      Icons.filter_alt_outlined,
+                                      color: AppColors.orange,
+                                      size: 24,
+                                    )
+                                  : const Icon(
+                                      Icons.filter_alt_off_outlined,
+                                      color: AppColors.orange,
+                                      size: 24,
+                                    ),
                             ],
                           ),
                         ),

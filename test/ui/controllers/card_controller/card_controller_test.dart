@@ -73,7 +73,7 @@ void main() {
       verifyInOrder([callable.call(true), callable.call(false)]);
     });
     test(
-        'filterCardsByNameContains() should filter loadedCards() with passed string'
+        'filterCardsByNameSearch() should filter loadedCards() with passed string'
         'and set filtered value to cardsToShow field', () async {
       //prep data
       final card1 = MockCards();
@@ -85,7 +85,7 @@ void main() {
       cardController.loadedCards =
           mobx.ObservableList.of([card1, card2, card3]);
       //manipulation
-      cardController.filterCardsByNameContains('name test 2');
+      cardController.filterCardsByNameSearch('name test 2');
       //check
       expect(cardController.cardsToShow, containsAll([card2]));
     });

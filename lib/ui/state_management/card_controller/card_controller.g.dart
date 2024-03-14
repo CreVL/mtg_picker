@@ -153,6 +153,22 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
+  late final _$selectedManaColorsAtom =
+      Atom(name: 'CardControllerBase.selectedManaColors', context: context);
+
+  @override
+  Set<Color> get selectedManaColors {
+    _$selectedManaColorsAtom.reportRead();
+    return super.selectedManaColors;
+  }
+
+  @override
+  set selectedManaColors(Set<Color> value) {
+    _$selectedManaColorsAtom.reportWrite(value, super.selectedManaColors, () {
+      super.selectedManaColors = value;
+    });
+  }
+
   late final _$loadCardsAsyncAction =
       AsyncAction('CardControllerBase.loadCards', context: context);
 
@@ -192,22 +208,22 @@ mixin _$CardController on CardControllerBase, Store {
       ActionController(name: 'CardControllerBase', context: context);
 
   @override
-  void filterCardsByManaColor(Set<Color> selectedColors) {
+  void filterCardsByNameSearch(String text) {
     final _$actionInfo = _$CardControllerBaseActionController.startAction(
-        name: 'CardControllerBase.filterCardsByManaColor');
+        name: 'CardControllerBase.filterCardsByNameSearch');
     try {
-      return super.filterCardsByManaColor(selectedColors);
+      return super.filterCardsByNameSearch(text);
     } finally {
       _$CardControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void filterCardsByNameContains(String text) {
+  void filterCardsByManaColor(Set<Color> selectedColors) {
     final _$actionInfo = _$CardControllerBaseActionController.startAction(
-        name: 'CardControllerBase.filterCardsByNameContains');
+        name: 'CardControllerBase.filterCardsByManaColor');
     try {
-      return super.filterCardsByNameContains(text);
+      return super.filterCardsByManaColor(selectedColors);
     } finally {
       _$CardControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -224,7 +240,8 @@ hasError: ${hasError},
 isFiltered: ${isFiltered},
 currentPage: ${currentPage},
 isSearching: ${isSearching},
-isColorFiltered: ${isColorFiltered}
+isColorFiltered: ${isColorFiltered},
+selectedManaColors: ${selectedManaColors}
     ''';
   }
 }

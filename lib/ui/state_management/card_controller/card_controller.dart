@@ -56,24 +56,60 @@ abstract class CardControllerBase with Store {
   @observable
   bool isColorFiltered = false;
 
+  @observable
+  Set<Color> selectedManaColors = {};
+
+  final Map<String, Color> manaColors = {
+    'W': AppColors.whiteMana,
+    'U': AppColors.blueMana,
+    'B': AppColors.blackMana,
+    'R': AppColors.redMana,
+    'G': AppColors.greenMana,
+  };
+
+  @action
+  void filterCardsByNameSearch(String text) {
+    isSearching = text.isNotEmpty;
+    if (text.isEmpty || text.trim().isEmpty) {
+      filterManaColorSearch();
+    } else {
+      cardsToShow = loadedCards!
+          .where(
+            (card) => card.name.toLowerCase().contains(text.toLowerCase()),
+          )
+          .toList()
+          .asObservable();
+      filterManaColorSearch();
+    }
+    isLoadingMore = !isSearching;
+  }
+
+  void filterManaColorSearch() {
+    if (isColorFiltered) {
+      cardsToShow = ObservableList.of(
+        cardsToShow!.where((card) {
+          for (var manaString in card.manaCost.characters) {
+            if (selectedManaColors.contains(manaColors[manaString])) {
+              return true;
+            }
+          }
+          return false;
+        }),
+      );
+    }
+  }
+
   @action
   void filterCardsByManaColor(Set<Color> selectedColors) {
-    final Map<String, Color> manaColors = {
-      'W': AppColors.whiteMana,
-      'U': AppColors.blueMana,
-      'B': AppColors.blackMana,
-      'R': AppColors.redMana,
-      'G': AppColors.greenMana,
-    };
-
+    selectedManaColors = selectedColors;
     cardsToShow = ObservableList.of(
       loadedCards!.where((card) {
-        if (selectedColors.isEmpty) {
+        if (selectedManaColors.isEmpty) {
           isColorFiltered = false;
           return true;
         }
         for (var manaString in card.manaCost.characters) {
-          if (selectedColors.contains(manaColors[manaString])) {
+          if (selectedManaColors.contains(manaColors[manaString])) {
             isColorFiltered = true;
             return true;
           }
@@ -109,24 +145,6 @@ abstract class CardControllerBase with Store {
         cardsToShow = loadedCards;
       }
     }
-  }
-
-  @action
-  void filterCardsByNameContains(String text) {
-    isSearching = text.isNotEmpty;
-    if (text.isEmpty || text.trim().isEmpty) {
-      cardsToShow = loadedCards;
-    } else {
-      cardsToShow = loadedCards!
-          .where(
-            (card) => card.name.toLowerCase().contains(
-                  text.toLowerCase(),
-                ),
-          )
-          .toList()
-          .asObservable();
-    }
-    isLoadingMore = !isSearching;
   }
 
   @action
