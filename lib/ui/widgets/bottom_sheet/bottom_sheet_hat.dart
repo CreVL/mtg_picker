@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mtg_picker/ui/resources/app_colors.dart';
 
 class BottomSheetHat extends StatelessWidget {
-  const BottomSheetHat({Key? key}) : super(key: key);
+  const BottomSheetHat({super.key});
 
   @override
   Widget build(BuildContext context) {
