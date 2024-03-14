@@ -137,6 +137,22 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
+  late final _$isColorFilteredAtom =
+      Atom(name: 'CardControllerBase.isColorFiltered', context: context);
+
+  @override
+  bool get isColorFiltered {
+    _$isColorFilteredAtom.reportRead();
+    return super.isColorFiltered;
+  }
+
+  @override
+  set isColorFiltered(bool value) {
+    _$isColorFilteredAtom.reportWrite(value, super.isColorFiltered, () {
+      super.isColorFiltered = value;
+    });
+  }
+
   late final _$loadCardsAsyncAction =
       AsyncAction('CardControllerBase.loadCards', context: context);
 
@@ -176,22 +192,22 @@ mixin _$CardController on CardControllerBase, Store {
       ActionController(name: 'CardControllerBase', context: context);
 
   @override
-  void filterCardsByNameContains(String text) {
+  void filterCardsByManaColor(Set<Color> selectedColors) {
     final _$actionInfo = _$CardControllerBaseActionController.startAction(
-        name: 'CardControllerBase.filterCardsByNameContains');
+        name: 'CardControllerBase.filterCardsByManaColor');
     try {
-      return super.filterCardsByNameContains(text);
+      return super.filterCardsByManaColor(selectedColors);
     } finally {
       _$CardControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void filterCardsByManaColor(String color) {
+  void filterCardsByNameContains(String text) {
     final _$actionInfo = _$CardControllerBaseActionController.startAction(
-        name: 'CardControllerBase.filterCardsByManaColor');
+        name: 'CardControllerBase.filterCardsByNameContains');
     try {
-      return super.filterCardsByManaColor(color);
+      return super.filterCardsByNameContains(text);
     } finally {
       _$CardControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -207,7 +223,8 @@ isLoadingMore: ${isLoadingMore},
 hasError: ${hasError},
 isFiltered: ${isFiltered},
 currentPage: ${currentPage},
-isSearching: ${isSearching}
+isSearching: ${isSearching},
+isColorFiltered: ${isColorFiltered}
     ''';
   }
 }

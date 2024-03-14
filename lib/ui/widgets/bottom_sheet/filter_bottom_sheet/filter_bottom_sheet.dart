@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mtg_picker/ui/controllers/filter_bottom_sheet_controller/filter_bottom_sheet_controller.dart';
 import 'package:mtg_picker/ui/resources/app_colors.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 import 'package:mtg_picker/ui/widgets/bottom_sheet/bottom_sheet_hat.dart';
 
-class FilterBottomSheet extends StatelessWidget {
-  final Function(Color color)? filterChanged;
+import 'package:mtg_picker/ui/widgets/button/mana_filter_button/mana_filter_button.dart';
 
-  const FilterBottomSheet({super.key, this.filterChanged});
+import '../../../../internal/hooks/effect_once_hook.dart';
+
+class FilterBottomSheet extends HookWidget {
+  final Function(Set<Color>) filterChanged;
+
+  const FilterBottomSheet({super.key, required this.filterChanged});
 
   @override
   Widget build(BuildContext context) {
+    final filterBottomSheetController = useMemoized(
+      () => FilterBottomSheetController(filterChanged: filterChanged),
+    );
+
+    useEffectOnce(() {
+      filterBottomSheetController.updateFilters();
+    });
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -29,26 +44,54 @@ class FilterBottomSheet extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
+                    behavior: HitTestBehavior.translucent,
                     onTap: () {
                       Navigator.pop(context);
                     },
                     child: const Icon(
-                      color: AppColors.orange,
                       Icons.close,
                       size: 24,
+                      color: AppColors.orange,
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 20.0),
-              Row(
-                children: [
-                  Text(
-                    'ManaCost:',
-                    style: themeData.textTheme.titleLarge,
-                  ),
-                  const SizedBox(width: 10),
-                ],
+              Observer(
+                builder: (_) => Row(
+                  children: [
+                    Text(
+                      'ManaCost:',
+                      style: themeData.textTheme.titleLarge,
+                    ),
+                    const SizedBox(width: 10),
+                    ManaFilterButton(
+                      color: AppColors.whiteMana,
+                      isSelected: filterBottomSheetController.whiteManaSelected,
+                      onTap: filterBottomSheetController.toggleWhiteMana,
+                    ),
+                    ManaFilterButton(
+                      color: AppColors.blueMana,
+                      isSelected: filterBottomSheetController.blueManaSelected,
+                      onTap: filterBottomSheetController.toggleBlueMana,
+                    ),
+                    ManaFilterButton(
+                      color: AppColors.blackMana,
+                      isSelected: filterBottomSheetController.blackManaSelected,
+                      onTap: filterBottomSheetController.toggleBlackMana,
+                    ),
+                    ManaFilterButton(
+                      color: AppColors.redMana,
+                      isSelected: filterBottomSheetController.redManaSelected,
+                      onTap: filterBottomSheetController.toggleRedMana,
+                    ),
+                    ManaFilterButton(
+                      color: AppColors.greenMana,
+                      isSelected: filterBottomSheetController.greenManaSelected,
+                      onTap: filterBottomSheetController.toggleGreenMana,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 20.0),
             ],

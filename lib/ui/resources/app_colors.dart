@@ -11,7 +11,7 @@ class AppColors {
 
   static const Color whiteMana = Color(0xFFEEE4C0);
   static const Color blueMana = Color(0xFFB4CFE6);
-  static const Color blackMana = Color(0xFFA9A9A9);
+  static const Color blackMana = Color(0xFF100F0F);
   static const Color redMana = Color(0xFFE8A88C);
   static const Color greenMana = Color(0xFFCCDB9C);
 }

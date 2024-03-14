@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
 import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart';
 import 'package:mtg_picker/domain/entities/card/card.dart';
+import 'package:mtg_picker/ui/resources/app_colors.dart';
 
 part 'card_controller.g.dart';
 
@@ -52,6 +53,37 @@ abstract class CardControllerBase with Store {
   @observable
   bool isSearching = false;
 
+  @observable
+  bool isColorFiltered = false;
+
+  @action
+  void filterCardsByManaColor(Set<Color> selectedColors) {
+    final Map<String, Color> manaColors = {
+      'W': AppColors.whiteMana,
+      'U': AppColors.blueMana,
+      'B': AppColors.blackMana,
+      'R': AppColors.redMana,
+      'G': AppColors.greenMana,
+    };
+
+    cardsToShow = ObservableList.of(
+      loadedCards!.where((card) {
+        if (selectedColors.isEmpty) {
+          isColorFiltered = false;
+          return true;
+        }
+        for (var manaString in card.manaCost.characters) {
+          if (selectedColors.contains(manaColors[manaString])) {
+            isColorFiltered = true;
+            return true;
+          }
+        }
+        isColorFiltered = true;
+        return false;
+      }),
+    );
+  }
+
   @action
   Future loadCards() async {
     isLoading = true;
@@ -90,22 +122,6 @@ abstract class CardControllerBase with Store {
             (card) => card.name.toLowerCase().contains(
                   text.toLowerCase(),
                 ),
-          )
-          .toList()
-          .asObservable();
-    }
-    isLoadingMore = !isSearching;
-  }
-
-  @action
-  void filterCardsByManaColor(String color) {
-    isSearching = color.isNotEmpty;
-    if (color.isEmpty || color.trim().isEmpty) {
-      cardsToShow = loadedCards;
-    } else {
-      cardsToShow = loadedCards!
-          .where(
-            (card) => card.manaCost.contains(color),
           )
           .toList()
           .asObservable();

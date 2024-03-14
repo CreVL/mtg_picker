@@ -74,9 +74,12 @@ class CardPage extends HookWidget {
                           showModalBottomSheet(
                             context: context,
                             builder: (BuildContext context) {
-                              return const FilterBottomSheet(
-                                  // filterChanged: cardController.filterCards,
-                                  );
+                              return FilterBottomSheet(
+                                filterChanged: (selectedColors) {
+                                  cardController
+                                      .filterCardsByManaColor(selectedColors);
+                                },
+                              );
                             },
                           );
                         },
