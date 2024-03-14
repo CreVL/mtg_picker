@@ -1,21 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart';
 import 'package:mtg_picker/domain/entities/card/card.dart';
+import 'package:mtg_picker/internal/hooks/effect_once_hook.dart';
+import 'package:mtg_picker/ui/controllers/favorite_controller/favorite_controller.dart';
 import 'package:mtg_picker/ui/resurces/app_colors.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
+import 'package:mtg_picker/ui/widgets/chip/favorite_toggle_chip/favorite_toggle_chip.dart';
 
-class ListTileCard extends StatelessWidget {
+class ListTileCard extends HookWidget {
   final Cards card;
   final VoidCallback onTap;
+  final bool? isFavorite;
 
   const ListTileCard({
     super.key,
     required this.onTap,
     required this.card,
+    required this.isFavorite,
   });
 
   @override
   Widget build(BuildContext context) {
+    final favoritesController = useMemoized(
+      () => FavoriteController(
+        favoriteCardRepository: GetIt.I<FavoriteCardRepository>(),
+      ),
+    );
+
+    useEffectOnce(() => favoritesController.loadFavorites());
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: GestureDetector(
@@ -54,7 +70,29 @@ class ListTileCard extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            Observer(
+              builder: (context) {
+                final favoriteCard = favoritesController.findFavoriteCard(card);
+                final isFavorite = favoriteCard != null;
+                return FavoriteToggleChip(
+                  onTap: () {
+                    if (isFavorite) {
+                      favoritesController.deleteFavoriteCard(favoriteCard.uuid);
+                    } else {
+                      favoritesController.addFavoriteCard(card);
+                    }
+                  },
+                  isSelected: isFavorite,
+                  iconBuilder: (isSelected) => isSelected
+                      ? Icons.favorite
+                      : Icons.favorite_border_outlined,
+                );
+              },
+            ),
+            const SizedBox(
+              width: 18,
+            ),
           ],
         ),
       ),
