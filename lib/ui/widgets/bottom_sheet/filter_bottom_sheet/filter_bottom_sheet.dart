@@ -44,7 +44,7 @@ class FilterBottomSheet extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'ManaCost:' ,
+                    'ManaCost:',
                     style: themeData.textTheme.titleLarge,
                   ),
                   const SizedBox(width: 10),
