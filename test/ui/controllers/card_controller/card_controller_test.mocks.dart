@@ -9,8 +9,12 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:mtg_picker/application/repository/cards/cards_repository.dart'
     as _i4;
+import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart'
+    as _i8;
 import 'package:mtg_picker/application/repository/repository_error.dart' as _i6;
 import 'package:mtg_picker/domain/entities/card/card.dart' as _i3;
+import 'package:mtg_picker/domain/entities/favorite/favorite_card/favorite_card.dart'
+    as _i9;
 import 'package:mtg_picker/internal/entities/either.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -234,4 +238,96 @@ class MockCards extends _i1.Mock implements _i3.Cards {
         returnValue: <String, dynamic>{},
         returnValueForMissingStub: <String, dynamic>{},
       ) as Map<String, dynamic>);
+}
+
+/// A class which mocks [FavoriteCardRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFavoriteCardRepository extends _i1.Mock
+    implements _i8.FavoriteCardRepository {
+  @override
+  _i5.Future<_i2.Either<_i6.RepositoryError, List<_i9.FavoriteCard>>>
+      getFavoriteCards() => (super.noSuchMethod(
+            Invocation.method(
+              #getFavoriteCards,
+              [],
+            ),
+            returnValue: _i5.Future<
+                    _i2
+                    .Either<_i6.RepositoryError, List<_i9.FavoriteCard>>>.value(
+                _FakeEither_0<_i6.RepositoryError, List<_i9.FavoriteCard>>(
+              this,
+              Invocation.method(
+                #getFavoriteCards,
+                [],
+              ),
+            )),
+            returnValueForMissingStub: _i5.Future<
+                    _i2
+                    .Either<_i6.RepositoryError, List<_i9.FavoriteCard>>>.value(
+                _FakeEither_0<_i6.RepositoryError, List<_i9.FavoriteCard>>(
+              this,
+              Invocation.method(
+                #getFavoriteCards,
+                [],
+              ),
+            )),
+          ) as _i5
+              .Future<_i2.Either<_i6.RepositoryError, List<_i9.FavoriteCard>>>);
+
+  @override
+  _i5.Future<
+      _i2.Either<_i6.RepositoryError, _i9.FavoriteCard>> createFavoriteCard(
+          _i3.Cards? cards) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createFavoriteCard,
+          [cards],
+        ),
+        returnValue:
+            _i5.Future<_i2.Either<_i6.RepositoryError, _i9.FavoriteCard>>.value(
+                _FakeEither_0<_i6.RepositoryError, _i9.FavoriteCard>(
+          this,
+          Invocation.method(
+            #createFavoriteCard,
+            [cards],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i2.Either<_i6.RepositoryError, _i9.FavoriteCard>>.value(
+                _FakeEither_0<_i6.RepositoryError, _i9.FavoriteCard>(
+          this,
+          Invocation.method(
+            #createFavoriteCard,
+            [cards],
+          ),
+        )),
+      ) as _i5.Future<_i2.Either<_i6.RepositoryError, _i9.FavoriteCard>>);
+
+  @override
+  _i5.Future<_i2.Either<_i6.RepositoryError, bool>> deleteFavoriteCard(
+          String? uuid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteFavoriteCard,
+          [uuid],
+        ),
+        returnValue: _i5.Future<_i2.Either<_i6.RepositoryError, bool>>.value(
+            _FakeEither_0<_i6.RepositoryError, bool>(
+          this,
+          Invocation.method(
+            #deleteFavoriteCard,
+            [uuid],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i2.Either<_i6.RepositoryError, bool>>.value(
+                _FakeEither_0<_i6.RepositoryError, bool>(
+          this,
+          Invocation.method(
+            #deleteFavoriteCard,
+            [uuid],
+          ),
+        )),
+      ) as _i5.Future<_i2.Either<_i6.RepositoryError, bool>>);
 }

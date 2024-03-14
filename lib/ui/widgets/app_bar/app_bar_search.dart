@@ -60,6 +60,7 @@ class AppBarSearch extends HookWidget {
                         width: 16,
                       ),
                       GestureDetector(
+                        behavior: HitTestBehavior.translucent,
                         onTap: onFavoriteTapped,
                         child: Icon(
                           isFavorite

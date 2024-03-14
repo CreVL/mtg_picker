@@ -57,6 +57,22 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
+  late final _$isLoadingMoreAtom =
+      Atom(name: 'CardControllerBase.isLoadingMore', context: context);
+
+  @override
+  bool get isLoadingMore {
+    _$isLoadingMoreAtom.reportRead();
+    return super.isLoadingMore;
+  }
+
+  @override
+  set isLoadingMore(bool value) {
+    _$isLoadingMoreAtom.reportWrite(value, super.isLoadingMore, () {
+      super.isLoadingMore = value;
+    });
+  }
+
   late final _$hasErrorAtom =
       Atom(name: 'CardControllerBase.hasError', context: context);
 
@@ -105,11 +121,27 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
+  late final _$isSearchingAtom =
+      Atom(name: 'CardControllerBase.isSearching', context: context);
+
+  @override
+  bool get isSearching {
+    _$isSearchingAtom.reportRead();
+    return super.isSearching;
+  }
+
+  @override
+  set isSearching(bool value) {
+    _$isSearchingAtom.reportWrite(value, super.isSearching, () {
+      super.isSearching = value;
+    });
+  }
+
   late final _$loadCardsAsyncAction =
       AsyncAction('CardControllerBase.loadCards', context: context);
 
   @override
-  Future<void> loadCards() {
+  Future<dynamic> loadCards() {
     return _$loadCardsAsyncAction.run(() => super.loadCards());
   }
 
@@ -117,7 +149,7 @@ mixin _$CardController on CardControllerBase, Store {
       AsyncAction('CardControllerBase.loadMoreCards', context: context);
 
   @override
-  Future<void> loadMoreCards() {
+  Future<dynamic> loadMoreCards() {
     return _$loadMoreCardsAsyncAction.run(() => super.loadMoreCards());
   }
 
@@ -125,7 +157,7 @@ mixin _$CardController on CardControllerBase, Store {
       AsyncAction('CardControllerBase.toggleFavoritesFilter', context: context);
 
   @override
-  Future<void> toggleFavoritesFilter() {
+  Future<dynamic> toggleFavoritesFilter() {
     return _$toggleFavoritesFilterAsyncAction
         .run(() => super.toggleFavoritesFilter());
   }
@@ -135,7 +167,7 @@ mixin _$CardController on CardControllerBase, Store {
       context: context);
 
   @override
-  Future<void> buildCardsDependOnFilter() {
+  Future<dynamic> buildCardsDependOnFilter() {
     return _$buildCardsDependOnFilterAsyncAction
         .run(() => super.buildCardsDependOnFilter());
   }
@@ -160,9 +192,11 @@ mixin _$CardController on CardControllerBase, Store {
 cardsToShow: ${cardsToShow},
 loadedCards: ${loadedCards},
 isLoading: ${isLoading},
+isLoadingMore: ${isLoadingMore},
 hasError: ${hasError},
 isFiltered: ${isFiltered},
-currentPage: ${currentPage}
+currentPage: ${currentPage},
+isSearching: ${isSearching}
     ''';
   }
 }

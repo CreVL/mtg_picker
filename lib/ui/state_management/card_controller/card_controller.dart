@@ -22,7 +22,8 @@ abstract class CardControllerBase with Store {
   }
 
   void _scrolling() {
-    if (scrollController.offset == scrollController.position.maxScrollExtent) {
+    if (isLoadingMore &&
+        scrollController.offset == scrollController.position.maxScrollExtent) {
       loadMoreCards();
     }
   }
@@ -37,6 +38,9 @@ abstract class CardControllerBase with Store {
   bool isLoading = false;
 
   @observable
+  bool isLoadingMore = true;
+
+  @observable
   bool hasError = false;
 
   @observable
@@ -45,8 +49,11 @@ abstract class CardControllerBase with Store {
   @observable
   int currentPage = 1;
 
+  @observable
+  bool isSearching = false;
+
   @action
-  Future<void> loadCards() async {
+  Future loadCards() async {
     isLoading = true;
     final eitherResult = await cardsRepository.getCards();
     if (eitherResult.isLeft) {
@@ -60,18 +67,21 @@ abstract class CardControllerBase with Store {
   }
 
   @action
-  Future<void> loadMoreCards() async {
+  Future loadMoreCards() async {
     currentPage++;
     final eitherResult = await cardsRepository.getCards(page: currentPage);
     if (eitherResult.isRight) {
       final newCards = eitherResult.right?.asObservable();
-      loadedCards?.addAll(newCards!);
-      cardsToShow = loadedCards;
+      if (isLoadingMore) {
+        loadedCards?.addAll(newCards!);
+        cardsToShow = loadedCards;
+      }
     }
   }
 
   @action
   void filterCardsByNameContains(String text) {
+    isSearching = text.isNotEmpty;
     if (text.isEmpty || text.trim().isEmpty) {
       cardsToShow = loadedCards;
     } else {
@@ -84,16 +94,18 @@ abstract class CardControllerBase with Store {
           .toList()
           .asObservable();
     }
+    isLoadingMore = !isSearching;
   }
 
   @action
-  Future<void> toggleFavoritesFilter() async {
+  Future toggleFavoritesFilter() async {
+    isLoadingMore = isFiltered;
     isFiltered = !isFiltered;
     await buildCardsDependOnFilter();
   }
 
   @action
-  Future<void> buildCardsDependOnFilter() async {
+  Future buildCardsDependOnFilter() async {
     if (isFiltered) {
       final favoriteCardsResult =
           await favoriteCardRepository.getFavoriteCards();
@@ -110,6 +122,7 @@ abstract class CardControllerBase with Store {
       );
     } else {
       cardsToShow = loadedCards;
+      isLoadingMore = true;
     }
   }
 

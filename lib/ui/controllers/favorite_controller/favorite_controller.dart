@@ -10,21 +10,6 @@ class FavoriteController = _FavoriteControllerBase with _$FavoriteController;
 abstract class _FavoriteControllerBase with Store {
   final FavoriteCardRepository favoriteCardRepository;
 
-  final List<FavoriteCard> placeholderCards = List.filled(
-    10,
-    const FavoriteCard(
-      uuid: "1",
-      card: Cards(
-        name: 'sdfdfdfdfdf',
-        manaCost: 'sfddd',
-        type: 'fsddddd',
-        rarity: 'sdfffff',
-        imageUrl:
-            'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card',
-      ),
-    ),
-  );
-
   _FavoriteControllerBase({
     required this.favoriteCardRepository,
   });
