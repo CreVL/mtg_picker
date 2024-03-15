@@ -62,27 +62,47 @@ class FilterBottomSheet extends HookWidget {
                     ManaColorFilterButton(
                       color: AppColors.whiteMana,
                       isSelected: filterBottomSheetController.whiteManaSelected,
-                      onTap: filterBottomSheetController.toggleWhiteMana,
+                      onTap: () {
+                        filterBottomSheetController.toggleWhiteMana();
+                        filterChanged(
+                            filterBottomSheetController.selectedColors);
+                      },
                     ),
                     ManaColorFilterButton(
                       color: AppColors.blueMana,
                       isSelected: filterBottomSheetController.blueManaSelected,
-                      onTap: filterBottomSheetController.toggleBlueMana,
+                      onTap: () {
+                        filterBottomSheetController.toggleBlueMana();
+                        filterChanged(
+                            filterBottomSheetController.selectedColors);
+                      },
                     ),
                     ManaColorFilterButton(
                       color: AppColors.blackMana,
                       isSelected: filterBottomSheetController.blackManaSelected,
-                      onTap: filterBottomSheetController.toggleBlackMana,
+                      onTap: () {
+                        filterBottomSheetController.toggleBlackMana();
+                        filterChanged(
+                            filterBottomSheetController.selectedColors);
+                      },
                     ),
                     ManaColorFilterButton(
                       color: AppColors.redMana,
                       isSelected: filterBottomSheetController.redManaSelected,
-                      onTap: filterBottomSheetController.toggleRedMana,
+                      onTap: () {
+                        filterBottomSheetController.toggleRedMana();
+                        filterChanged(
+                            filterBottomSheetController.selectedColors);
+                      },
                     ),
                     ManaColorFilterButton(
                       color: AppColors.greenMana,
                       isSelected: filterBottomSheetController.greenManaSelected,
-                      onTap: filterBottomSheetController.toggleGreenMana,
+                      onTap: () {
+                        filterBottomSheetController.toggleGreenMana();
+                        filterChanged(
+                            filterBottomSheetController.selectedColors);
+                      },
                     ),
                   ],
                 ),
