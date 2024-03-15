@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mtg_picker/data/get_it_initializer.dart';
 import 'package:mtg_picker/data/hive_boxes/hive_boxes.dart';
 import 'package:mtg_picker/ui/pages/card_page/card_page.dart';
+import 'package:mtg_picker/ui/providers/root_providers.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 
 void main() async {
@@ -20,9 +21,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: router,
-      theme: themeData,
+    return RootProviders(
+      child: Builder(
+        builder: (context) {
+          return MaterialApp.router(
+            routerConfig: router,
+            theme: themeData,
+          );
+        },
+      ),
     );
   }
 }

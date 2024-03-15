@@ -2,18 +2,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:get_it/get_it.dart';
-import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
-import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart';
-import 'package:mtg_picker/internal/hooks/effect_once_hook.dart';
 import 'package:mtg_picker/ui/pages/card_details_page/card_details_page.dart';
+import 'package:mtg_picker/ui/providers/provider_extension.dart';
 import 'package:mtg_picker/ui/state_management/card_controller/card_controller.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 import 'package:mtg_picker/ui/widgets/app_bar/app_bar_search.dart';
 import 'package:mtg_picker/ui/widgets/bottom_sheet/filter_bottom_sheet/filter_bottom_sheet.dart';
 import 'package:mtg_picker/ui/widgets/list_tile/list_tile_card/list_tile_card.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
 import '../../resources/app_colors.dart';
 
 class CardPage extends HookWidget {
@@ -23,19 +19,9 @@ class CardPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardController = useMemoized(
-      () => CardController(
-        GetIt.I<CardsRepository>(),
-        GetIt.I<FavoriteCardRepository>(),
-      ),
-    );
     final mediaQueryData = MediaQuery.of(context);
     final viewInsets = mediaQueryData.viewInsets;
-
-    useEffectOnce(() {
-      cardController.loadCards();
-    });
-
+    final cardController = context.watch<CardController>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ManaFilterButton extends StatelessWidget {
+class ManaColorFilterButton extends StatelessWidget {
   final Color color;
   final bool isSelected;
   final VoidCallback onTap;
 
-  const ManaFilterButton({
+  const ManaColorFilterButton({
     super.key,
     required this.color,
     required this.isSelected,

@@ -219,6 +219,17 @@ mixin _$CardController on CardControllerBase, Store {
   }
 
   @override
+  void filterManaColorSearch() {
+    final _$actionInfo = _$CardControllerBaseActionController.startAction(
+        name: 'CardControllerBase.filterManaColorSearch');
+    try {
+      return super.filterManaColorSearch();
+    } finally {
+      _$CardControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void filterCardsByManaColor(Set<Color> selectedColors) {
     final _$actionInfo = _$CardControllerBaseActionController.startAction(
         name: 'CardControllerBase.filterCardsByManaColor');

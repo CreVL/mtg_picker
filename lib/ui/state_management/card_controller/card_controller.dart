@@ -84,6 +84,7 @@ abstract class CardControllerBase with Store {
     isLoadingMore = !isSearching;
   }
 
+  @action
   void filterManaColorSearch() {
     if (isColorFiltered) {
       cardsToShow = ObservableList.of(

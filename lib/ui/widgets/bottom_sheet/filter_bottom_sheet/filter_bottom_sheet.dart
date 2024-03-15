@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mtg_picker/ui/controllers/filter_bottom_sheet_controller/filter_bottom_sheet_controller.dart';
+import 'package:mtg_picker/ui/providers/provider_extension.dart';
 import 'package:mtg_picker/ui/resources/app_colors.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 import 'package:mtg_picker/ui/widgets/bottom_sheet/bottom_sheet_hat.dart';
 
-import 'package:mtg_picker/ui/widgets/button/mana_filter_button/mana_filter_button.dart';
-
-import '../../../../internal/hooks/effect_once_hook.dart';
+import 'package:mtg_picker/ui/widgets/button/mana_color_filter_button/mana_color_filter_button.dart';
 
 class FilterBottomSheet extends HookWidget {
   final Function(Set<Color>) filterChanged;
@@ -17,13 +16,8 @@ class FilterBottomSheet extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filterBottomSheetController = useMemoized(
-      () => FilterBottomSheetController(filterChanged: filterChanged),
-    );
-
-    useEffectOnce(() {
-      filterBottomSheetController.updateFilters();
-    });
+    final filterBottomSheetController =
+        context.watch<FilterBottomSheetController>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,30 +59,41 @@ class FilterBottomSheet extends HookWidget {
                       style: themeData.textTheme.titleLarge,
                     ),
                     const SizedBox(width: 10),
-                    ManaFilterButton(
+                    ManaColorFilterButton(
                       color: AppColors.whiteMana,
                       isSelected: filterBottomSheetController.whiteManaSelected,
                       onTap: filterBottomSheetController.toggleWhiteMana,
                     ),
-                    ManaFilterButton(
+                    ManaColorFilterButton(
                       color: AppColors.blueMana,
                       isSelected: filterBottomSheetController.blueManaSelected,
                       onTap: filterBottomSheetController.toggleBlueMana,
                     ),
-                    ManaFilterButton(
+                    ManaColorFilterButton(
                       color: AppColors.blackMana,
                       isSelected: filterBottomSheetController.blackManaSelected,
                       onTap: filterBottomSheetController.toggleBlackMana,
                     ),
-                    ManaFilterButton(
+                    ManaColorFilterButton(
                       color: AppColors.redMana,
                       isSelected: filterBottomSheetController.redManaSelected,
                       onTap: filterBottomSheetController.toggleRedMana,
                     ),
-                    ManaFilterButton(
+                    ManaColorFilterButton(
                       color: AppColors.greenMana,
                       isSelected: filterBottomSheetController.greenManaSelected,
                       onTap: filterBottomSheetController.toggleGreenMana,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Observer(
+                builder: (_) => Row(
+                  children: [
+                    Text(
+                      "ManaCost count:",
+                      style: themeData.textTheme.titleLarge,
                     ),
                   ],
                 ),

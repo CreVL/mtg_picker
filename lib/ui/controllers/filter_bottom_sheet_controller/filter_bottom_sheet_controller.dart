@@ -7,9 +7,9 @@ class FilterBottomSheetController = FilterBottomSheetControllerBase
     with _$FilterBottomSheetController;
 
 abstract class FilterBottomSheetControllerBase with Store {
-  final Function(Set<Color>) filterChanged;
+  final Function(Set<Color>)? filterChanged;
 
-  FilterBottomSheetControllerBase({required this.filterChanged});
+  FilterBottomSheetControllerBase({this.filterChanged});
 
   @observable
   bool whiteManaSelected = false;
@@ -70,6 +70,6 @@ abstract class FilterBottomSheetControllerBase with Store {
     if (blackManaSelected) selectedColors.add(AppColors.blackMana);
     if (redManaSelected) selectedColors.add(AppColors.redMana);
     if (greenManaSelected) selectedColors.add(AppColors.greenMana);
-    filterChanged(selectedColors);
+    filterChanged?.call(selectedColors);
   }
 }
