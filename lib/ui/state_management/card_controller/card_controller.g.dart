@@ -157,13 +157,13 @@ mixin _$CardController on CardControllerBase, Store {
       Atom(name: 'CardControllerBase.selectedManaColors', context: context);
 
   @override
-  Set<Color> get selectedManaColors {
+  Set<ManaColor> get selectedManaColors {
     _$selectedManaColorsAtom.reportRead();
     return super.selectedManaColors;
   }
 
   @override
-  set selectedManaColors(Set<Color> value) {
+  set selectedManaColors(Set<ManaColor> value) {
     _$selectedManaColorsAtom.reportWrite(value, super.selectedManaColors, () {
       super.selectedManaColors = value;
     });
@@ -230,7 +230,7 @@ mixin _$CardController on CardControllerBase, Store {
   }
 
   @override
-  void filterCardsByManaColor(Set<Color> selectedColors) {
+  void filterCardsByManaColor(Set<ManaColor> selectedColors) {
     final _$actionInfo = _$CardControllerBaseActionController.startAction(
         name: 'CardControllerBase.filterCardsByManaColor');
     try {

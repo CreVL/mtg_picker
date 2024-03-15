@@ -9,8 +9,10 @@ import 'package:mtg_picker/ui/widgets/bottom_sheet/bottom_sheet_hat.dart';
 
 import 'package:mtg_picker/ui/widgets/button/mana_color_filter_button/mana_color_filter_button.dart';
 
+import '../../../../domain/enums/mana_color.dart';
+
 class FilterBottomSheet extends HookWidget {
-  final Function(Set<Color>) filterChanged;
+  final Function(Set<ManaColor>) filterChanged;
 
   const FilterBottomSheet({super.key, required this.filterChanged});
 
@@ -65,7 +67,8 @@ class FilterBottomSheet extends HookWidget {
                       onTap: () {
                         filterBottomSheetController.toggleWhiteMana();
                         filterChanged(
-                            filterBottomSheetController.selectedColors);
+                          filterBottomSheetController.selectedColors,
+                        );
                       },
                     ),
                     ManaColorFilterButton(
@@ -74,7 +77,8 @@ class FilterBottomSheet extends HookWidget {
                       onTap: () {
                         filterBottomSheetController.toggleBlueMana();
                         filterChanged(
-                            filterBottomSheetController.selectedColors);
+                          filterBottomSheetController.selectedColors,
+                        );
                       },
                     ),
                     ManaColorFilterButton(
@@ -83,7 +87,8 @@ class FilterBottomSheet extends HookWidget {
                       onTap: () {
                         filterBottomSheetController.toggleBlackMana();
                         filterChanged(
-                            filterBottomSheetController.selectedColors);
+                          filterBottomSheetController.selectedColors,
+                        );
                       },
                     ),
                     ManaColorFilterButton(
@@ -92,7 +97,8 @@ class FilterBottomSheet extends HookWidget {
                       onTap: () {
                         filterBottomSheetController.toggleRedMana();
                         filterChanged(
-                            filterBottomSheetController.selectedColors);
+                          filterBottomSheetController.selectedColors,
+                        );
                       },
                     ),
                     ManaColorFilterButton(
@@ -101,7 +107,8 @@ class FilterBottomSheet extends HookWidget {
                       onTap: () {
                         filterBottomSheetController.toggleGreenMana();
                         filterChanged(
-                            filterBottomSheetController.selectedColors);
+                          filterBottomSheetController.selectedColors,
+                        );
                       },
                     ),
                   ],

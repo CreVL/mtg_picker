@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import '../../../domain/enums/mana_color.dart';
 import '../../resources/app_colors.dart';
 part 'filter_bottom_sheet_controller.g.dart';
 
@@ -7,7 +8,7 @@ class FilterBottomSheetController = FilterBottomSheetControllerBase
     with _$FilterBottomSheetController;
 
 abstract class FilterBottomSheetControllerBase with Store {
-  final Function(Set<Color>)? filterChanged;
+  final Function(Set<ManaColor>)? filterChanged;
 
   FilterBottomSheetControllerBase({this.filterChanged});
 
@@ -30,7 +31,7 @@ abstract class FilterBottomSheetControllerBase with Store {
   bool greenManaSelected = false;
 
   @observable
-  Set<Color> selectedColors = {};
+  Set<ManaColor> selectedColors = {};
 
   @action
   void toggleWhiteMana() {
@@ -65,11 +66,11 @@ abstract class FilterBottomSheetControllerBase with Store {
   @action
   void updateFilters() {
     selectedColors.clear();
-    if (whiteManaSelected) selectedColors.add(AppColors.whiteMana);
-    if (blueManaSelected) selectedColors.add(AppColors.blueMana);
-    if (blackManaSelected) selectedColors.add(AppColors.blackMana);
-    if (redManaSelected) selectedColors.add(AppColors.redMana);
-    if (greenManaSelected) selectedColors.add(AppColors.greenMana);
+    if (whiteManaSelected) selectedColors.add(ManaColor.manaWhite);
+    if (blueManaSelected) selectedColors.add(ManaColor.manaBlue);
+    if (blackManaSelected) selectedColors.add(ManaColor.manaBlack);
+    if (redManaSelected) selectedColors.add(ManaColor.manaRed);
+    if (greenManaSelected) selectedColors.add(ManaColor.manaGreen);
     filterChanged?.call(selectedColors);
   }
 }

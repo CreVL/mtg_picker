@@ -1,20 +1,20 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mtg_picker/domain/enums/mana_color.dart';
 import 'package:mtg_picker/ui/resources/app_colors.dart';
 import '../../../internal/mocks/callable/callable.mocks.dart';
 import 'filter_bottom_sheet_controller_tester.dart';
 
 @GenerateNiceMocks([
-  MockSpec<Set<Color>>(),
+  MockSpec<Set<ManaColor>>(),
 ])
 void main() {
   group('filter_bottom_sheet_controller tests---', () {
-    late Function(Set<Color>) filterChangedCallback;
+    late Function(Set<ManaColor>) filterChangedCallback;
     late FilterBottomSheetControllerTester controller;
 
     setUp(() {
-      filterChangedCallback = MockCallable<Set<Color>>().call;
+      filterChangedCallback = MockCallable<Set<ManaColor>>().call;
       controller = FilterBottomSheetControllerTester(
         filterChanged: filterChangedCallback,
       );
@@ -130,8 +130,8 @@ void main() {
       //manipulation
       controller.updateFilters();
       //check
-      expect(controller.selectedColors.contains(AppColors.whiteMana), false);
-      expect(controller.selectedColors.contains(AppColors.redMana), true);
+      expect(controller.selectedColors.contains(ManaColor.manaWhite), false);
+      expect(controller.selectedColors.contains(ManaColor.manaRed), true);
     });
   });
 }

@@ -3,7 +3,8 @@ import 'package:mobx/mobx.dart';
 import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
 import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart';
 import 'package:mtg_picker/domain/entities/card/card.dart';
-import 'package:mtg_picker/ui/resources/app_colors.dart';
+
+import '../../../domain/enums/mana_color.dart';
 
 part 'card_controller.g.dart';
 
@@ -57,14 +58,14 @@ abstract class CardControllerBase with Store {
   bool isColorFiltered = false;
 
   @observable
-  Set<Color> selectedManaColors = {};
+  Set<ManaColor> selectedManaColors = {};
 
-  final Map<String, Color> manaColors = {
-    'W': AppColors.whiteMana,
-    'U': AppColors.blueMana,
-    'B': AppColors.blackMana,
-    'R': AppColors.redMana,
-    'G': AppColors.greenMana,
+  final Map<String, ManaColor> manaColors = {
+    'W': ManaColor.manaWhite,
+    'U': ManaColor.manaBlue,
+    'B': ManaColor.manaBlack,
+    'R': ManaColor.manaRed,
+    'G': ManaColor.manaGreen,
   };
 
   @action
@@ -101,7 +102,7 @@ abstract class CardControllerBase with Store {
   }
 
   @action
-  void filterCardsByManaColor(Set<Color> selectedColors) {
+  void filterCardsByManaColor(Set<ManaColor> selectedColors) {
     selectedManaColors = selectedColors;
     cardsToShow = ObservableList.of(
       loadedCards!.where((card) {

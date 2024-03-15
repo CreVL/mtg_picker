@@ -3,10 +3,9 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:ui' as _i2;
-
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
+import 'package:mtg_picker/domain/enums/mana_color.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -31,32 +30,22 @@ class _FakeIterator_0<E> extends _i1.SmartFake implements Iterator<E> {
         );
 }
 
-class _FakeColor_1 extends _i1.SmartFake implements _i2.Color {
-  _FakeColor_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [Set].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSet extends _i1.Mock implements Set<_i2.Color> {
+class MockSet extends _i1.Mock implements Set<_i2.ManaColor> {
   @override
-  Iterator<_i2.Color> get iterator => (super.noSuchMethod(
+  Iterator<_i2.ManaColor> get iterator => (super.noSuchMethod(
         Invocation.getter(#iterator),
-        returnValue: _FakeIterator_0<_i2.Color>(
+        returnValue: _FakeIterator_0<_i2.ManaColor>(
           this,
           Invocation.getter(#iterator),
         ),
-        returnValueForMissingStub: _FakeIterator_0<_i2.Color>(
+        returnValueForMissingStub: _FakeIterator_0<_i2.ManaColor>(
           this,
           Invocation.getter(#iterator),
         ),
-      ) as Iterator<_i2.Color>);
+      ) as Iterator<_i2.ManaColor>);
 
   @override
   int get length => (super.noSuchMethod(
@@ -80,43 +69,25 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       ) as bool);
 
   @override
-  _i2.Color get first => (super.noSuchMethod(
+  _i2.ManaColor get first => (super.noSuchMethod(
         Invocation.getter(#first),
-        returnValue: _FakeColor_1(
-          this,
-          Invocation.getter(#first),
-        ),
-        returnValueForMissingStub: _FakeColor_1(
-          this,
-          Invocation.getter(#first),
-        ),
-      ) as _i2.Color);
+        returnValue: _i2.ManaColor.manaWhite,
+        returnValueForMissingStub: _i2.ManaColor.manaWhite,
+      ) as _i2.ManaColor);
 
   @override
-  _i2.Color get last => (super.noSuchMethod(
+  _i2.ManaColor get last => (super.noSuchMethod(
         Invocation.getter(#last),
-        returnValue: _FakeColor_1(
-          this,
-          Invocation.getter(#last),
-        ),
-        returnValueForMissingStub: _FakeColor_1(
-          this,
-          Invocation.getter(#last),
-        ),
-      ) as _i2.Color);
+        returnValue: _i2.ManaColor.manaWhite,
+        returnValueForMissingStub: _i2.ManaColor.manaWhite,
+      ) as _i2.ManaColor);
 
   @override
-  _i2.Color get single => (super.noSuchMethod(
+  _i2.ManaColor get single => (super.noSuchMethod(
         Invocation.getter(#single),
-        returnValue: _FakeColor_1(
-          this,
-          Invocation.getter(#single),
-        ),
-        returnValueForMissingStub: _FakeColor_1(
-          this,
-          Invocation.getter(#single),
-        ),
-      ) as _i2.Color);
+        returnValue: _i2.ManaColor.manaWhite,
+        returnValueForMissingStub: _i2.ManaColor.manaWhite,
+      ) as _i2.ManaColor);
 
   @override
   Set<R> cast<R>() => (super.noSuchMethod(
@@ -139,7 +110,7 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       ) as bool);
 
   @override
-  bool add(_i2.Color? value) => (super.noSuchMethod(
+  bool add(_i2.ManaColor? value) => (super.noSuchMethod(
         Invocation.method(
           #add,
           [value],
@@ -149,7 +120,7 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       ) as bool);
 
   @override
-  void addAll(Iterable<_i2.Color>? elements) => super.noSuchMethod(
+  void addAll(Iterable<_i2.ManaColor>? elements) => super.noSuchMethod(
         Invocation.method(
           #addAll,
           [elements],
@@ -186,7 +157,7 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       );
 
   @override
-  void removeWhere(bool Function(_i2.Color)? test) => super.noSuchMethod(
+  void removeWhere(bool Function(_i2.ManaColor)? test) => super.noSuchMethod(
         Invocation.method(
           #removeWhere,
           [test],
@@ -195,7 +166,7 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       );
 
   @override
-  void retainWhere(bool Function(_i2.Color)? test) => super.noSuchMethod(
+  void retainWhere(bool Function(_i2.ManaColor)? test) => super.noSuchMethod(
         Invocation.method(
           #retainWhere,
           [test],
@@ -214,34 +185,34 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       ) as bool);
 
   @override
-  Set<_i2.Color> intersection(Set<Object?>? other) => (super.noSuchMethod(
+  Set<_i2.ManaColor> intersection(Set<Object?>? other) => (super.noSuchMethod(
         Invocation.method(
           #intersection,
           [other],
         ),
-        returnValue: <_i2.Color>{},
-        returnValueForMissingStub: <_i2.Color>{},
-      ) as Set<_i2.Color>);
+        returnValue: <_i2.ManaColor>{},
+        returnValueForMissingStub: <_i2.ManaColor>{},
+      ) as Set<_i2.ManaColor>);
 
   @override
-  Set<_i2.Color> union(Set<_i2.Color>? other) => (super.noSuchMethod(
+  Set<_i2.ManaColor> union(Set<_i2.ManaColor>? other) => (super.noSuchMethod(
         Invocation.method(
           #union,
           [other],
         ),
-        returnValue: <_i2.Color>{},
-        returnValueForMissingStub: <_i2.Color>{},
-      ) as Set<_i2.Color>);
+        returnValue: <_i2.ManaColor>{},
+        returnValueForMissingStub: <_i2.ManaColor>{},
+      ) as Set<_i2.ManaColor>);
 
   @override
-  Set<_i2.Color> difference(Set<Object?>? other) => (super.noSuchMethod(
+  Set<_i2.ManaColor> difference(Set<Object?>? other) => (super.noSuchMethod(
         Invocation.method(
           #difference,
           [other],
         ),
-        returnValue: <_i2.Color>{},
-        returnValueForMissingStub: <_i2.Color>{},
-      ) as Set<_i2.Color>);
+        returnValue: <_i2.ManaColor>{},
+        returnValueForMissingStub: <_i2.ManaColor>{},
+      ) as Set<_i2.ManaColor>);
 
   @override
   void clear() => super.noSuchMethod(
@@ -253,28 +224,29 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       );
 
   @override
-  Set<_i2.Color> toSet() => (super.noSuchMethod(
+  Set<_i2.ManaColor> toSet() => (super.noSuchMethod(
         Invocation.method(
           #toSet,
           [],
         ),
-        returnValue: <_i2.Color>{},
-        returnValueForMissingStub: <_i2.Color>{},
-      ) as Set<_i2.Color>);
+        returnValue: <_i2.ManaColor>{},
+        returnValueForMissingStub: <_i2.ManaColor>{},
+      ) as Set<_i2.ManaColor>);
 
   @override
-  Iterable<_i2.Color> followedBy(Iterable<_i2.Color>? other) =>
+  Iterable<_i2.ManaColor> followedBy(Iterable<_i2.ManaColor>? other) =>
       (super.noSuchMethod(
         Invocation.method(
           #followedBy,
           [other],
         ),
-        returnValue: <_i2.Color>[],
-        returnValueForMissingStub: <_i2.Color>[],
-      ) as Iterable<_i2.Color>);
+        returnValue: <_i2.ManaColor>[],
+        returnValueForMissingStub: <_i2.ManaColor>[],
+      ) as Iterable<_i2.ManaColor>);
 
   @override
-  Iterable<T> map<T>(T Function(_i2.Color)? toElement) => (super.noSuchMethod(
+  Iterable<T> map<T>(T Function(_i2.ManaColor)? toElement) =>
+      (super.noSuchMethod(
         Invocation.method(
           #map,
           [toElement],
@@ -284,15 +256,15 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       ) as Iterable<T>);
 
   @override
-  Iterable<_i2.Color> where(bool Function(_i2.Color)? test) =>
+  Iterable<_i2.ManaColor> where(bool Function(_i2.ManaColor)? test) =>
       (super.noSuchMethod(
         Invocation.method(
           #where,
           [test],
         ),
-        returnValue: <_i2.Color>[],
-        returnValueForMissingStub: <_i2.Color>[],
-      ) as Iterable<_i2.Color>);
+        returnValue: <_i2.ManaColor>[],
+        returnValueForMissingStub: <_i2.ManaColor>[],
+      ) as Iterable<_i2.ManaColor>);
 
   @override
   Iterable<T> whereType<T>() => (super.noSuchMethod(
@@ -305,7 +277,7 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       ) as Iterable<T>);
 
   @override
-  Iterable<T> expand<T>(Iterable<T> Function(_i2.Color)? toElements) =>
+  Iterable<T> expand<T>(Iterable<T> Function(_i2.ManaColor)? toElements) =>
       (super.noSuchMethod(
         Invocation.method(
           #expand,
@@ -316,7 +288,7 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       ) as Iterable<T>);
 
   @override
-  void forEach(void Function(_i2.Color)? action) => super.noSuchMethod(
+  void forEach(void Function(_i2.ManaColor)? action) => super.noSuchMethod(
         Invocation.method(
           #forEach,
           [action],
@@ -325,38 +297,26 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       );
 
   @override
-  _i2.Color reduce(
-          _i2.Color Function(
-            _i2.Color,
-            _i2.Color,
+  _i2.ManaColor reduce(
+          _i2.ManaColor Function(
+            _i2.ManaColor,
+            _i2.ManaColor,
           )? combine) =>
       (super.noSuchMethod(
         Invocation.method(
           #reduce,
           [combine],
         ),
-        returnValue: _FakeColor_1(
-          this,
-          Invocation.method(
-            #reduce,
-            [combine],
-          ),
-        ),
-        returnValueForMissingStub: _FakeColor_1(
-          this,
-          Invocation.method(
-            #reduce,
-            [combine],
-          ),
-        ),
-      ) as _i2.Color);
+        returnValue: _i2.ManaColor.manaWhite,
+        returnValueForMissingStub: _i2.ManaColor.manaWhite,
+      ) as _i2.ManaColor);
 
   @override
   T fold<T>(
     T? initialValue,
     T Function(
       T,
-      _i2.Color,
+      _i2.ManaColor,
     )? combine,
   ) =>
       (super.noSuchMethod(
@@ -390,7 +350,7 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       ) as T);
 
   @override
-  bool every(bool Function(_i2.Color)? test) => (super.noSuchMethod(
+  bool every(bool Function(_i2.ManaColor)? test) => (super.noSuchMethod(
         Invocation.method(
           #every,
           [test],
@@ -422,7 +382,7 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       ) as String);
 
   @override
-  bool any(bool Function(_i2.Color)? test) => (super.noSuchMethod(
+  bool any(bool Function(_i2.ManaColor)? test) => (super.noSuchMethod(
         Invocation.method(
           #any,
           [test],
@@ -432,62 +392,62 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
       ) as bool);
 
   @override
-  List<_i2.Color> toList({bool? growable = true}) => (super.noSuchMethod(
+  List<_i2.ManaColor> toList({bool? growable = true}) => (super.noSuchMethod(
         Invocation.method(
           #toList,
           [],
           {#growable: growable},
         ),
-        returnValue: <_i2.Color>[],
-        returnValueForMissingStub: <_i2.Color>[],
-      ) as List<_i2.Color>);
+        returnValue: <_i2.ManaColor>[],
+        returnValueForMissingStub: <_i2.ManaColor>[],
+      ) as List<_i2.ManaColor>);
 
   @override
-  Iterable<_i2.Color> take(int? count) => (super.noSuchMethod(
+  Iterable<_i2.ManaColor> take(int? count) => (super.noSuchMethod(
         Invocation.method(
           #take,
           [count],
         ),
-        returnValue: <_i2.Color>[],
-        returnValueForMissingStub: <_i2.Color>[],
-      ) as Iterable<_i2.Color>);
+        returnValue: <_i2.ManaColor>[],
+        returnValueForMissingStub: <_i2.ManaColor>[],
+      ) as Iterable<_i2.ManaColor>);
 
   @override
-  Iterable<_i2.Color> takeWhile(bool Function(_i2.Color)? test) =>
+  Iterable<_i2.ManaColor> takeWhile(bool Function(_i2.ManaColor)? test) =>
       (super.noSuchMethod(
         Invocation.method(
           #takeWhile,
           [test],
         ),
-        returnValue: <_i2.Color>[],
-        returnValueForMissingStub: <_i2.Color>[],
-      ) as Iterable<_i2.Color>);
+        returnValue: <_i2.ManaColor>[],
+        returnValueForMissingStub: <_i2.ManaColor>[],
+      ) as Iterable<_i2.ManaColor>);
 
   @override
-  Iterable<_i2.Color> skip(int? count) => (super.noSuchMethod(
+  Iterable<_i2.ManaColor> skip(int? count) => (super.noSuchMethod(
         Invocation.method(
           #skip,
           [count],
         ),
-        returnValue: <_i2.Color>[],
-        returnValueForMissingStub: <_i2.Color>[],
-      ) as Iterable<_i2.Color>);
+        returnValue: <_i2.ManaColor>[],
+        returnValueForMissingStub: <_i2.ManaColor>[],
+      ) as Iterable<_i2.ManaColor>);
 
   @override
-  Iterable<_i2.Color> skipWhile(bool Function(_i2.Color)? test) =>
+  Iterable<_i2.ManaColor> skipWhile(bool Function(_i2.ManaColor)? test) =>
       (super.noSuchMethod(
         Invocation.method(
           #skipWhile,
           [test],
         ),
-        returnValue: <_i2.Color>[],
-        returnValueForMissingStub: <_i2.Color>[],
-      ) as Iterable<_i2.Color>);
+        returnValue: <_i2.ManaColor>[],
+        returnValueForMissingStub: <_i2.ManaColor>[],
+      ) as Iterable<_i2.ManaColor>);
 
   @override
-  _i2.Color firstWhere(
-    bool Function(_i2.Color)? test, {
-    _i2.Color Function()? orElse,
+  _i2.ManaColor firstWhere(
+    bool Function(_i2.ManaColor)? test, {
+    _i2.ManaColor Function()? orElse,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -495,28 +455,14 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
           [test],
           {#orElse: orElse},
         ),
-        returnValue: _FakeColor_1(
-          this,
-          Invocation.method(
-            #firstWhere,
-            [test],
-            {#orElse: orElse},
-          ),
-        ),
-        returnValueForMissingStub: _FakeColor_1(
-          this,
-          Invocation.method(
-            #firstWhere,
-            [test],
-            {#orElse: orElse},
-          ),
-        ),
-      ) as _i2.Color);
+        returnValue: _i2.ManaColor.manaWhite,
+        returnValueForMissingStub: _i2.ManaColor.manaWhite,
+      ) as _i2.ManaColor);
 
   @override
-  _i2.Color lastWhere(
-    bool Function(_i2.Color)? test, {
-    _i2.Color Function()? orElse,
+  _i2.ManaColor lastWhere(
+    bool Function(_i2.ManaColor)? test, {
+    _i2.ManaColor Function()? orElse,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -524,28 +470,14 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
           [test],
           {#orElse: orElse},
         ),
-        returnValue: _FakeColor_1(
-          this,
-          Invocation.method(
-            #lastWhere,
-            [test],
-            {#orElse: orElse},
-          ),
-        ),
-        returnValueForMissingStub: _FakeColor_1(
-          this,
-          Invocation.method(
-            #lastWhere,
-            [test],
-            {#orElse: orElse},
-          ),
-        ),
-      ) as _i2.Color);
+        returnValue: _i2.ManaColor.manaWhite,
+        returnValueForMissingStub: _i2.ManaColor.manaWhite,
+      ) as _i2.ManaColor);
 
   @override
-  _i2.Color singleWhere(
-    bool Function(_i2.Color)? test, {
-    _i2.Color Function()? orElse,
+  _i2.ManaColor singleWhere(
+    bool Function(_i2.ManaColor)? test, {
+    _i2.ManaColor Function()? orElse,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -553,43 +485,17 @@ class MockSet extends _i1.Mock implements Set<_i2.Color> {
           [test],
           {#orElse: orElse},
         ),
-        returnValue: _FakeColor_1(
-          this,
-          Invocation.method(
-            #singleWhere,
-            [test],
-            {#orElse: orElse},
-          ),
-        ),
-        returnValueForMissingStub: _FakeColor_1(
-          this,
-          Invocation.method(
-            #singleWhere,
-            [test],
-            {#orElse: orElse},
-          ),
-        ),
-      ) as _i2.Color);
+        returnValue: _i2.ManaColor.manaWhite,
+        returnValueForMissingStub: _i2.ManaColor.manaWhite,
+      ) as _i2.ManaColor);
 
   @override
-  _i2.Color elementAt(int? index) => (super.noSuchMethod(
+  _i2.ManaColor elementAt(int? index) => (super.noSuchMethod(
         Invocation.method(
           #elementAt,
           [index],
         ),
-        returnValue: _FakeColor_1(
-          this,
-          Invocation.method(
-            #elementAt,
-            [index],
-          ),
-        ),
-        returnValueForMissingStub: _FakeColor_1(
-          this,
-          Invocation.method(
-            #elementAt,
-            [index],
-          ),
-        ),
-      ) as _i2.Color);
+        returnValue: _i2.ManaColor.manaWhite,
+        returnValueForMissingStub: _i2.ManaColor.manaWhite,
+      ) as _i2.ManaColor);
 }

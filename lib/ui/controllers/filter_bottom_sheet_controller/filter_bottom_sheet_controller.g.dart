@@ -115,13 +115,13 @@ mixin _$FilterBottomSheetController on FilterBottomSheetControllerBase, Store {
       name: 'FilterBottomSheetControllerBase.selectedColors', context: context);
 
   @override
-  Set<Color> get selectedColors {
+  Set<ManaColor> get selectedColors {
     _$selectedColorsAtom.reportRead();
     return super.selectedColors;
   }
 
   @override
-  set selectedColors(Set<Color> value) {
+  set selectedColors(Set<ManaColor> value) {
     _$selectedColorsAtom.reportWrite(value, super.selectedColors, () {
       super.selectedColors = value;
     });
