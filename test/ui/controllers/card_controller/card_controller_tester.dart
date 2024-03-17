@@ -16,8 +16,8 @@ class MockCardController extends CardController {
   }
 
   @override
-  Future<void> buildCardsDependOnFilter() async {
+  Future<void> buildCardsDependOnFilterFavorite() async {
     buildCardsDependOnFilterCalled += 1;
-    return super.buildCardsDependOnFilter();
+    return super.buildCardsDependOnFilterFavorite();
   }
 }

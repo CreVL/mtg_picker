@@ -39,20 +39,22 @@ class RootProviders extends HookWidget {
       filterBottomSheetController.updateFilters();
     });
 
-    return Observer(builder: (context) {
-      return MultiProvider(
-        providersBuilders: [
-          (child) => Provider<CardController>(
-                data: cardController,
-                child: child,
-              ),
-          (child) => Provider<FilterBottomSheetController>(
-                data: filterBottomSheetController,
-                child: child,
-              ),
-        ],
-        child: child,
-      );
-    });
+    return Observer(
+      builder: (context) {
+        return MultiProvider(
+          providersBuilders: [
+            (child) => Provider<CardController>(
+                  data: cardController,
+                  child: child,
+                ),
+            (child) => Provider<FilterBottomSheetController>(
+                  data: filterBottomSheetController,
+                  child: child,
+                ),
+          ],
+          child: child,
+        );
+      },
+    );
   }
 }

@@ -9,22 +9,6 @@ part of 'card_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$CardController on CardControllerBase, Store {
-  late final _$cardsToShowAtom =
-      Atom(name: 'CardControllerBase.cardsToShow', context: context);
-
-  @override
-  ObservableList<Cards>? get cardsToShow {
-    _$cardsToShowAtom.reportRead();
-    return super.cardsToShow;
-  }
-
-  @override
-  set cardsToShow(ObservableList<Cards>? value) {
-    _$cardsToShowAtom.reportWrite(value, super.cardsToShow, () {
-      super.cardsToShow = value;
-    });
-  }
-
   late final _$loadedCardsAtom =
       Atom(name: 'CardControllerBase.loadedCards', context: context);
 
@@ -57,19 +41,19 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
-  late final _$isLoadingMoreAtom =
-      Atom(name: 'CardControllerBase.isLoadingMore', context: context);
+  late final _$isPagginationAtom =
+      Atom(name: 'CardControllerBase.isPaggination', context: context);
 
   @override
-  bool get isLoadingMore {
-    _$isLoadingMoreAtom.reportRead();
-    return super.isLoadingMore;
+  bool get isPaggination {
+    _$isPagginationAtom.reportRead();
+    return super.isPaggination;
   }
 
   @override
-  set isLoadingMore(bool value) {
-    _$isLoadingMoreAtom.reportWrite(value, super.isLoadingMore, () {
-      super.isLoadingMore = value;
+  set isPaggination(bool value) {
+    _$isPagginationAtom.reportWrite(value, super.isPaggination, () {
+      super.isPaggination = value;
     });
   }
 
@@ -89,22 +73,6 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
-  late final _$isFilteredAtom =
-      Atom(name: 'CardControllerBase.isFiltered', context: context);
-
-  @override
-  bool get isFiltered {
-    _$isFilteredAtom.reportRead();
-    return super.isFiltered;
-  }
-
-  @override
-  set isFiltered(bool value) {
-    _$isFilteredAtom.reportWrite(value, super.isFiltered, () {
-      super.isFiltered = value;
-    });
-  }
-
   late final _$currentPageAtom =
       Atom(name: 'CardControllerBase.currentPage', context: context);
 
@@ -121,35 +89,83 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
-  late final _$isSearchingAtom =
-      Atom(name: 'CardControllerBase.isSearching', context: context);
+  late final _$isFavoriteFilterAtom =
+      Atom(name: 'CardControllerBase.isFavoriteFilter', context: context);
 
   @override
-  bool get isSearching {
-    _$isSearchingAtom.reportRead();
-    return super.isSearching;
+  bool get isFavoriteFilter {
+    _$isFavoriteFilterAtom.reportRead();
+    return super.isFavoriteFilter;
   }
 
   @override
-  set isSearching(bool value) {
-    _$isSearchingAtom.reportWrite(value, super.isSearching, () {
-      super.isSearching = value;
+  set isFavoriteFilter(bool value) {
+    _$isFavoriteFilterAtom.reportWrite(value, super.isFavoriteFilter, () {
+      super.isFavoriteFilter = value;
     });
   }
 
-  late final _$isColorFilteredAtom =
-      Atom(name: 'CardControllerBase.isColorFiltered', context: context);
+  late final _$cardsToShowAtom =
+      Atom(name: 'CardControllerBase.cardsToShow', context: context);
 
   @override
-  bool get isColorFiltered {
-    _$isColorFilteredAtom.reportRead();
-    return super.isColorFiltered;
+  ObservableList<Cards>? get cardsToShow {
+    _$cardsToShowAtom.reportRead();
+    return super.cardsToShow;
   }
 
   @override
-  set isColorFiltered(bool value) {
-    _$isColorFilteredAtom.reportWrite(value, super.isColorFiltered, () {
-      super.isColorFiltered = value;
+  set cardsToShow(ObservableList<Cards>? value) {
+    _$cardsToShowAtom.reportWrite(value, super.cardsToShow, () {
+      super.cardsToShow = value;
+    });
+  }
+
+  late final _$isManaCostFilterAtom =
+      Atom(name: 'CardControllerBase.isManaCostFilter', context: context);
+
+  @override
+  bool get isManaCostFilter {
+    _$isManaCostFilterAtom.reportRead();
+    return super.isManaCostFilter;
+  }
+
+  @override
+  set isManaCostFilter(bool value) {
+    _$isManaCostFilterAtom.reportWrite(value, super.isManaCostFilter, () {
+      super.isManaCostFilter = value;
+    });
+  }
+
+  late final _$isSearchAtom =
+      Atom(name: 'CardControllerBase.isSearch', context: context);
+
+  @override
+  bool get isSearch {
+    _$isSearchAtom.reportRead();
+    return super.isSearch;
+  }
+
+  @override
+  set isSearch(bool value) {
+    _$isSearchAtom.reportWrite(value, super.isSearch, () {
+      super.isSearch = value;
+    });
+  }
+
+  late final _$isTextSearchingAtom =
+      Atom(name: 'CardControllerBase.isTextSearching', context: context);
+
+  @override
+  String get isTextSearching {
+    _$isTextSearchingAtom.reportRead();
+    return super.isTextSearching;
+  }
+
+  @override
+  set isTextSearching(String value) {
+    _$isTextSearchingAtom.reportWrite(value, super.isTextSearching, () {
+      super.isTextSearching = value;
     });
   }
 
@@ -169,6 +185,31 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
+  late final _$toggleSearchAsyncAction =
+      AsyncAction('CardControllerBase.toggleSearch', context: context);
+
+  @override
+  Future<dynamic> toggleSearch(String text) {
+    return _$toggleSearchAsyncAction.run(() => super.toggleSearch(text));
+  }
+
+  late final _$toggleManaCostFilterAsyncAction =
+      AsyncAction('CardControllerBase.toggleManaCostFilter', context: context);
+
+  @override
+  Future<dynamic> toggleManaCostFilter(Set<ManaColor> selectedColors) {
+    return _$toggleManaCostFilterAsyncAction
+        .run(() => super.toggleManaCostFilter(selectedColors));
+  }
+
+  late final _$toggleFavoritesAsyncAction =
+      AsyncAction('CardControllerBase.toggleFavorites', context: context);
+
+  @override
+  Future<dynamic> toggleFavorites() {
+    return _$toggleFavoritesAsyncAction.run(() => super.toggleFavorites());
+  }
+
   late final _$loadCardsAsyncAction =
       AsyncAction('CardControllerBase.loadCards', context: context);
 
@@ -177,81 +218,19 @@ mixin _$CardController on CardControllerBase, Store {
     return _$loadCardsAsyncAction.run(() => super.loadCards());
   }
 
-  late final _$loadMoreCardsAsyncAction =
-      AsyncAction('CardControllerBase.loadMoreCards', context: context);
-
-  @override
-  Future<dynamic> loadMoreCards() {
-    return _$loadMoreCardsAsyncAction.run(() => super.loadMoreCards());
-  }
-
-  late final _$toggleFavoritesFilterAsyncAction =
-      AsyncAction('CardControllerBase.toggleFavoritesFilter', context: context);
-
-  @override
-  Future<dynamic> toggleFavoritesFilter() {
-    return _$toggleFavoritesFilterAsyncAction
-        .run(() => super.toggleFavoritesFilter());
-  }
-
-  late final _$buildCardsDependOnFilterAsyncAction = AsyncAction(
-      'CardControllerBase.buildCardsDependOnFilter',
-      context: context);
-
-  @override
-  Future<dynamic> buildCardsDependOnFilter() {
-    return _$buildCardsDependOnFilterAsyncAction
-        .run(() => super.buildCardsDependOnFilter());
-  }
-
-  late final _$CardControllerBaseActionController =
-      ActionController(name: 'CardControllerBase', context: context);
-
-  @override
-  void filterCardsByNameSearch(String text) {
-    final _$actionInfo = _$CardControllerBaseActionController.startAction(
-        name: 'CardControllerBase.filterCardsByNameSearch');
-    try {
-      return super.filterCardsByNameSearch(text);
-    } finally {
-      _$CardControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void filterManaColorSearch() {
-    final _$actionInfo = _$CardControllerBaseActionController.startAction(
-        name: 'CardControllerBase.filterManaColorSearch');
-    try {
-      return super.filterManaColorSearch();
-    } finally {
-      _$CardControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void filterCardsByManaColor(Set<ManaColor> selectedColors) {
-    final _$actionInfo = _$CardControllerBaseActionController.startAction(
-        name: 'CardControllerBase.filterCardsByManaColor');
-    try {
-      return super.filterCardsByManaColor(selectedColors);
-    } finally {
-      _$CardControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
-cardsToShow: ${cardsToShow},
 loadedCards: ${loadedCards},
 isLoading: ${isLoading},
-isLoadingMore: ${isLoadingMore},
+isPaggination: ${isPaggination},
 hasError: ${hasError},
-isFiltered: ${isFiltered},
 currentPage: ${currentPage},
-isSearching: ${isSearching},
-isColorFiltered: ${isColorFiltered},
+isFavoriteFilter: ${isFavoriteFilter},
+cardsToShow: ${cardsToShow},
+isManaCostFilter: ${isManaCostFilter},
+isSearch: ${isSearch},
+isTextSearching: ${isTextSearching},
 selectedManaColors: ${selectedManaColors}
     ''';
   }

@@ -38,11 +38,11 @@ class CardPage extends HookWidget {
                   child: Column(
                     children: [
                       AppBarSearch(
-                        isFavorite: cardController.isFiltered,
+                        isFavorite: cardController.isFavoriteFilter,
                         onFavoriteTapped: () {
-                          cardController.toggleFavoritesFilter();
+                          cardController.toggleFavorites();
                         },
-                        searchChanged: cardController.filterCardsByNameSearch,
+                        searchChanged: cardController.toggleSearch,
                         title: Text(
                           'Cards',
                           textAlign: TextAlign.center,
@@ -63,7 +63,7 @@ class CardPage extends HookWidget {
                               return FilterBottomSheet(
                                 filterChanged: (selectedColors) {
                                   cardController
-                                      .filterCardsByManaColor(selectedColors);
+                                      .toggleManaCostFilter(selectedColors);
                                 },
                               );
                             },
@@ -74,7 +74,7 @@ class CardPage extends HookWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              cardController.isColorFiltered
+                              cardController.isManaCostFilter
                                   ? const Icon(
                                       Icons.filter_alt_outlined,
                                       color: AppColors.orange,
@@ -169,12 +169,12 @@ class CardPage extends HookWidget {
                                                   ),
                                                 );
                                               },
-                                              isFavorite:
-                                                  cardController.isFiltered,
+                                              isFavorite: cardController
+                                                  .isFavoriteFilter,
                                             ),
                                           );
                                         } else if (cardController
-                                            .isLoadingMore) {
+                                            .isPaggination) {
                                           return const Padding(
                                             padding: EdgeInsets.all(16.0),
                                             child: Center(

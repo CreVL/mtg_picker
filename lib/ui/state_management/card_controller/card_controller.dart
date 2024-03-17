@@ -24,14 +24,9 @@ abstract class CardControllerBase with Store {
   }
 
   void _scrolling() {
-    if (isLoadingMore &&
-        scrollController.offset == scrollController.position.maxScrollExtent) {
-      loadMoreCards();
-    }
+    if (isPaggination &&
+        scrollController.offset == scrollController.position.maxScrollExtent) {}
   }
-
-  @observable
-  ObservableList<Cards>? cardsToShow;
 
   @observable
   ObservableList<Cards>? loadedCards;
@@ -40,22 +35,28 @@ abstract class CardControllerBase with Store {
   bool isLoading = false;
 
   @observable
-  bool isLoadingMore = true;
+  bool isPaggination = true;
 
   @observable
   bool hasError = false;
 
   @observable
-  bool isFiltered = false;
-
-  @observable
   int currentPage = 1;
 
   @observable
-  bool isSearching = false;
+  bool isFavoriteFilter = false;
 
   @observable
-  bool isColorFiltered = false;
+  ObservableList<Cards>? cardsToShow;
+
+  @observable
+  bool isManaCostFilter = false;
+
+  @observable
+  bool isSearch = false;
+
+  @observable
+  String isTextSearching = '';
 
   @observable
   Set<ManaColor> selectedManaColors = {};
@@ -69,57 +70,73 @@ abstract class CardControllerBase with Store {
   };
 
   @action
-  void filterCardsByNameSearch(String text) {
-    isSearching = text.isNotEmpty;
-    if (text.isEmpty || text.trim().isEmpty) {
-      filterManaColorSearch();
-    } else {
-      cardsToShow = loadedCards!
-          .where(
-            (card) => card.name.toLowerCase().contains(text.toLowerCase()),
-          )
-          .toList()
-          .asObservable();
-      filterManaColorSearch();
-    }
-    isLoadingMore = !isSearching;
+  Future toggleSearch(String text) async {
+    isTextSearching = text;
+    isSearch = !isSearch;
+    await applyFilters();
   }
 
   @action
-  void filterManaColorSearch() {
-    if (isColorFiltered) {
-      cardsToShow = ObservableList.of(
-        cardsToShow!.where((card) {
-          for (var manaString in card.manaCost.characters) {
-            if (selectedManaColors.contains(manaColors[manaString])) {
-              return true;
-            }
-          }
-          return false;
-        }),
+  Future toggleManaCostFilter(Set<ManaColor> selectedColors) async {
+    isManaCostFilter = selectedColors.isNotEmpty;
+    selectedManaColors = selectedColors;
+    await applyFilters();
+  }
+
+  @action
+  Future toggleFavorites() async {
+    isFavoriteFilter = !isFavoriteFilter;
+    await applyFilters();
+  }
+
+  Future applyFilters() async {
+    var filteredCards = ObservableList.of(loadedCards!);
+
+    if (isFavoriteFilter) {
+      filteredCards =
+          ObservableList.of(await filterFavoriteCards(filteredCards));
+    }
+
+    if (isTextSearching.isNotEmpty && isTextSearching.trim().isNotEmpty) {
+      filteredCards = ObservableList.of(
+        filteredCards.where(
+          (card) =>
+              card.name.toLowerCase().contains(isTextSearching.toLowerCase()),
+        ),
       );
     }
+
+    if (isManaCostFilter) {
+      filteredCards = ObservableList.of(await filterByManaCost(filteredCards));
+    }
+
+    cardsToShow = filteredCards;
   }
 
-  @action
-  void filterCardsByManaColor(Set<ManaColor> selectedColors) {
-    selectedManaColors = selectedColors;
-    cardsToShow = ObservableList.of(
-      loadedCards!.where((card) {
-        if (selectedManaColors.isEmpty) {
-          isColorFiltered = false;
+  Future<List<Cards>> filterFavoriteCards(List<Cards> cards) async {
+    final favoriteCardsResult = await favoriteCardRepository.getFavoriteCards();
+    return favoriteCardsResult.resolve(
+      (error) {
+        return [];
+      },
+      (favoriteCards) {
+        return favoriteCards.map((favorite) => favorite.card).toList();
+      },
+    );
+  }
+
+  Future<List<Cards>> filterByManaCost(List<Cards> cards) async {
+    return cards.where((card) {
+      if (selectedManaColors.isEmpty) {
+        return true;
+      }
+      for (var manaString in card.manaCost.characters) {
+        if (selectedManaColors.contains(manaColors[manaString])) {
           return true;
         }
-        for (var manaString in card.manaCost.characters) {
-          if (selectedManaColors.contains(manaColors[manaString])) {
-            isColorFiltered = true;
-            return true;
-          }
-        }
-        isColorFiltered = true;
-        return false;
-      }),
-    );
+      }
+      return false;
+    }).toList();
   }
 
   @action
@@ -134,48 +151,6 @@ abstract class CardControllerBase with Store {
       cardsToShow = loadedCards;
     }
     isLoading = false;
-  }
-
-  @action
-  Future loadMoreCards() async {
-    currentPage++;
-    final eitherResult = await cardsRepository.getCards(page: currentPage);
-    if (eitherResult.isRight) {
-      final newCards = eitherResult.right?.asObservable();
-      if (isLoadingMore) {
-        loadedCards?.addAll(newCards!);
-        cardsToShow = loadedCards;
-      }
-    }
-  }
-
-  @action
-  Future toggleFavoritesFilter() async {
-    isLoadingMore = isFiltered;
-    isFiltered = !isFiltered;
-    await buildCardsDependOnFilter();
-  }
-
-  @action
-  Future buildCardsDependOnFilter() async {
-    if (isFiltered) {
-      final favoriteCardsResult =
-          await favoriteCardRepository.getFavoriteCards();
-      favoriteCardsResult.resolve(
-        (error) {},
-        (favoriteCards) {
-          final favoriteIds =
-              favoriteCards.map((favorite) => favorite.card.name).toSet();
-          cardsToShow = loadedCards!
-              .where((card) => favoriteIds.contains(card.name))
-              .toList()
-              .asObservable();
-        },
-      );
-    } else {
-      cardsToShow = loadedCards;
-      isLoadingMore = true;
-    }
   }
 
   final List<Cards> mockedCards = [

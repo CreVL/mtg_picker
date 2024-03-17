@@ -93,9 +93,9 @@ void main() {
         () async {
       //prep data
       const isFiltered = true;
-      cardController.isFiltered = isFiltered;
+      cardController.isFavoriteFilter = isFiltered;
       //manipulation
-      await cardController.toggleFavoritesFilter();
+      await cardController.toggleFavorites();
       //check
       expect(cardController.buildCardsDependOnFilterCalled, 1);
     });
@@ -107,9 +107,9 @@ void main() {
       when(favoriteCardRepository.getFavoriteCards())
           .thenAnswer((_) async => Either.left(errorResult));
       //manipulation
-      await cardController.buildCardsDependOnFilter();
+      await cardController.buildCardsDependOnFilterFavorite();
       //check
-      expect(cardController.isFiltered, false);
+      expect(cardController.isFavoriteFilter, false);
     });
   });
 }
