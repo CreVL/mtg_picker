@@ -6,6 +6,7 @@ import 'package:mtg_picker/application/repository/favorite/favorite_card_reposit
 import 'package:mtg_picker/domain/entities/card/card.dart';
 import 'package:mtg_picker/internal/hooks/effect_once_hook.dart';
 import 'package:mtg_picker/ui/controllers/favorite_controller/favorite_controller.dart';
+import 'package:mtg_picker/ui/providers/provider_extension.dart';
 import 'package:mtg_picker/ui/resources/app_colors.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 import 'package:mtg_picker/ui/widgets/chip/favorite_toggle_chip/favorite_toggle_chip.dart';
@@ -24,13 +25,7 @@ class ListTileCard extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoritesController = useMemoized(
-      () => FavoriteController(
-        favoriteCardRepository: GetIt.I<FavoriteCardRepository>(),
-      ),
-    );
-
-    useEffectOnce(() => favoritesController.loadFavorites());
+    final favoritesController = context.watch<FavoriteController>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),

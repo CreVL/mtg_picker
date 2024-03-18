@@ -24,11 +24,10 @@ abstract class CardControllerBase with Store {
   }
 
   void _scrolling() {
-    if (!isManaCostFilter &&
-        !isSearch &&
-        !isFavoriteFilter &&
-        isPagination &&
-        scrollController.offset == scrollController.position.maxScrollExtent) {
+    if (isPagination &&
+        !isLoading &&
+        scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent) {
       loadMoreCards();
     }
   }
@@ -82,7 +81,7 @@ abstract class CardControllerBase with Store {
       final newCards = eitherResult.right?.asObservable();
       if (isPagination) {
         loadedCards?.addAll(newCards!);
-        cardsToShow = loadedCards;
+        await applyFilters();
       }
     }
   }
@@ -90,13 +89,13 @@ abstract class CardControllerBase with Store {
   @action
   Future loadCards() async {
     isLoading = true;
-    final eitherResult = await cardsRepository.getCards();
+    final eitherResult = await cardsRepository.getCards(page: currentPage);
     if (eitherResult.isLeft) {
       hasError = true;
     } else if (eitherResult.isRight) {
       hasError = false;
       loadedCards = eitherResult.right?.asObservable();
-      cardsToShow = loadedCards;
+      await applyFilters();
     }
     isLoading = false;
   }
@@ -118,7 +117,7 @@ abstract class CardControllerBase with Store {
   @action
   Future toggleFavorites() async {
     isFavoriteFilter = !isFavoriteFilter;
-    // isPagination = !isSearch && !isFavoriteFilter;
+    isPagination = !isSearch && !isFavoriteFilter;
     await applyFilters();
   }
 
@@ -144,6 +143,13 @@ abstract class CardControllerBase with Store {
     }
 
     cardsToShow = filteredCards;
+
+    if (filteredCards.isNotEmpty &&
+        filteredCards.length > loadedCards!.length) {
+      cardsToShow = filteredCards;
+    } else {
+      loadMoreCards();
+    }
   }
 
   Future<List<Cards>> filterFavoriteCards(List<Cards> cards) async {

@@ -174,10 +174,7 @@ class CardPage extends HookWidget {
                                             ),
                                           );
                                         } else if (cardController
-                                                .isPagination &&
-                                            !cardController.isFavoriteFilter &&
-                                            !cardController.isSearch &&
-                                            !cardController.isManaCostFilter) {
+                                            .isPagination) {
                                           return const Padding(
                                             padding: EdgeInsets.all(16.0),
                                             child: Center(

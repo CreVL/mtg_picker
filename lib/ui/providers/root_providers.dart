@@ -9,6 +9,7 @@ import 'package:mtg_picker/ui/providers/provider.dart';
 import 'package:mtg_picker/ui/state_management/card_controller/card_controller.dart';
 
 import '../../internal/hooks/effect_once_hook.dart';
+import '../controllers/favorite_controller/favorite_controller.dart';
 import 'multi_provider.dart';
 
 class RootProviders extends HookWidget {
@@ -27,8 +28,15 @@ class RootProviders extends HookWidget {
         GetIt.I<FavoriteCardRepository>(),
       ),
     );
+
     final filterBottomSheetController = useMemoized(
       () => FilterBottomSheetController(filterChanged: (_) {}),
+    );
+
+    final favoritesController = useMemoized(
+      () => FavoriteController(
+        favoriteCardRepository: GetIt.I<FavoriteCardRepository>(),
+      ),
     );
 
     useEffectOnce(() {
@@ -37,6 +45,10 @@ class RootProviders extends HookWidget {
 
     useEffectOnce(() {
       filterBottomSheetController.updateFilters();
+    });
+
+    useEffectOnce(() {
+      favoritesController.loadFavorites();
     });
 
     return Observer(
@@ -49,6 +61,10 @@ class RootProviders extends HookWidget {
                 ),
             (child) => Provider<FilterBottomSheetController>(
                   data: filterBottomSheetController,
+                  child: child,
+                ),
+            (child) => Provider<FavoriteController>(
+                  data: favoritesController,
                   child: child,
                 ),
           ],
