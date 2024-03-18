@@ -24,8 +24,13 @@ abstract class CardControllerBase with Store {
   }
 
   void _scrolling() {
-    if (isPaggination &&
-        scrollController.offset == scrollController.position.maxScrollExtent) {}
+    if (!isManaCostFilter &&
+        !isSearch &&
+        !isFavoriteFilter &&
+        isPagination &&
+        scrollController.offset == scrollController.position.maxScrollExtent) {
+      loadMoreCards();
+    }
   }
 
   @observable
@@ -35,7 +40,7 @@ abstract class CardControllerBase with Store {
   bool isLoading = false;
 
   @observable
-  bool isPaggination = true;
+  bool isPagination = true;
 
   @observable
   bool hasError = false;
@@ -70,9 +75,36 @@ abstract class CardControllerBase with Store {
   };
 
   @action
+  Future loadMoreCards() async {
+    currentPage++;
+    final eitherResult = await cardsRepository.getCards(page: currentPage);
+    if (eitherResult.isRight) {
+      final newCards = eitherResult.right?.asObservable();
+      if (isPagination) {
+        loadedCards?.addAll(newCards!);
+        cardsToShow = loadedCards;
+      }
+    }
+  }
+
+  @action
+  Future loadCards() async {
+    isLoading = true;
+    final eitherResult = await cardsRepository.getCards();
+    if (eitherResult.isLeft) {
+      hasError = true;
+    } else if (eitherResult.isRight) {
+      hasError = false;
+      loadedCards = eitherResult.right?.asObservable();
+      cardsToShow = loadedCards;
+    }
+    isLoading = false;
+  }
+
+  @action
   Future toggleSearch(String text) async {
     isTextSearching = text;
-    isSearch = !isSearch;
+    isSearch = text.isNotEmpty;
     await applyFilters();
   }
 
@@ -86,6 +118,7 @@ abstract class CardControllerBase with Store {
   @action
   Future toggleFavorites() async {
     isFavoriteFilter = !isFavoriteFilter;
+    // isPagination = !isSearch && !isFavoriteFilter;
     await applyFilters();
   }
 
@@ -137,20 +170,6 @@ abstract class CardControllerBase with Store {
       }
       return false;
     }).toList();
-  }
-
-  @action
-  Future loadCards() async {
-    isLoading = true;
-    final eitherResult = await cardsRepository.getCards();
-    if (eitherResult.isLeft) {
-      hasError = true;
-    } else if (eitherResult.isRight) {
-      hasError = false;
-      loadedCards = eitherResult.right?.asObservable();
-      cardsToShow = loadedCards;
-    }
-    isLoading = false;
   }
 
   final List<Cards> mockedCards = [

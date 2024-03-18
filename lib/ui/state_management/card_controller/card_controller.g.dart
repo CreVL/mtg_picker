@@ -41,19 +41,19 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
-  late final _$isPagginationAtom =
-      Atom(name: 'CardControllerBase.isPaggination', context: context);
+  late final _$isPaginationAtom =
+      Atom(name: 'CardControllerBase.isPagination', context: context);
 
   @override
-  bool get isPaggination {
-    _$isPagginationAtom.reportRead();
-    return super.isPaggination;
+  bool get isPagination {
+    _$isPaginationAtom.reportRead();
+    return super.isPagination;
   }
 
   @override
-  set isPaggination(bool value) {
-    _$isPagginationAtom.reportWrite(value, super.isPaggination, () {
-      super.isPaggination = value;
+  set isPagination(bool value) {
+    _$isPaginationAtom.reportWrite(value, super.isPagination, () {
+      super.isPagination = value;
     });
   }
 
@@ -185,6 +185,22 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
+  late final _$loadMoreCardsAsyncAction =
+      AsyncAction('CardControllerBase.loadMoreCards', context: context);
+
+  @override
+  Future<dynamic> loadMoreCards() {
+    return _$loadMoreCardsAsyncAction.run(() => super.loadMoreCards());
+  }
+
+  late final _$loadCardsAsyncAction =
+      AsyncAction('CardControllerBase.loadCards', context: context);
+
+  @override
+  Future<dynamic> loadCards() {
+    return _$loadCardsAsyncAction.run(() => super.loadCards());
+  }
+
   late final _$toggleSearchAsyncAction =
       AsyncAction('CardControllerBase.toggleSearch', context: context);
 
@@ -210,20 +226,12 @@ mixin _$CardController on CardControllerBase, Store {
     return _$toggleFavoritesAsyncAction.run(() => super.toggleFavorites());
   }
 
-  late final _$loadCardsAsyncAction =
-      AsyncAction('CardControllerBase.loadCards', context: context);
-
-  @override
-  Future<dynamic> loadCards() {
-    return _$loadCardsAsyncAction.run(() => super.loadCards());
-  }
-
   @override
   String toString() {
     return '''
 loadedCards: ${loadedCards},
 isLoading: ${isLoading},
-isPaggination: ${isPaggination},
+isPagination: ${isPagination},
 hasError: ${hasError},
 currentPage: ${currentPage},
 isFavoriteFilter: ${isFavoriteFilter},
