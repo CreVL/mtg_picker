@@ -111,6 +111,24 @@ mixin _$FilterBottomSheetController on FilterBottomSheetControllerBase, Store {
     });
   }
 
+  late final _$transparentManaSelectedAtom = Atom(
+      name: 'FilterBottomSheetControllerBase.transparentManaSelected',
+      context: context);
+
+  @override
+  bool get transparentManaSelected {
+    _$transparentManaSelectedAtom.reportRead();
+    return super.transparentManaSelected;
+  }
+
+  @override
+  set transparentManaSelected(bool value) {
+    _$transparentManaSelectedAtom
+        .reportWrite(value, super.transparentManaSelected, () {
+      super.transparentManaSelected = value;
+    });
+  }
+
   late final _$selectedColorsAtom = Atom(
       name: 'FilterBottomSheetControllerBase.selectedColors', context: context);
 
@@ -187,6 +205,18 @@ mixin _$FilterBottomSheetController on FilterBottomSheetControllerBase, Store {
   }
 
   @override
+  void toggleTransparentMana() {
+    final _$actionInfo =
+        _$FilterBottomSheetControllerBaseActionController.startAction(
+            name: 'FilterBottomSheetControllerBase.toggleTransparentMana');
+    try {
+      return super.toggleTransparentMana();
+    } finally {
+      _$FilterBottomSheetControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void updateFilters() {
     final _$actionInfo = _$FilterBottomSheetControllerBaseActionController
         .startAction(name: 'FilterBottomSheetControllerBase.updateFilters');
@@ -206,6 +236,7 @@ isFilterActivated: ${isFilterActivated},
 blackManaSelected: ${blackManaSelected},
 redManaSelected: ${redManaSelected},
 greenManaSelected: ${greenManaSelected},
+transparentManaSelected: ${transparentManaSelected},
 selectedColors: ${selectedColors}
     ''';
   }

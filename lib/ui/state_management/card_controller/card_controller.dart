@@ -71,7 +71,57 @@ abstract class CardControllerBase with Store {
     ManaColor.manaBlack: 'B',
     ManaColor.manaRed: 'R',
     ManaColor.manaGreen: 'G',
+    ManaColor.manaTransparent: 'X',
   };
+
+  Future<List<Cards>> filterByManaCost(List<Cards> cards) async {
+    return cards.where((card) {
+      if (selectedManaColors.isEmpty) {
+        return true;
+      }
+      for (var selectedColor in selectedManaColors) {
+        if (!card.manaCost.contains(getStringMana(selectedColor))) {
+          return false;
+        }
+      }
+      return true;
+    }).toList();
+  }
+
+  String getStringMana(ManaColor color) {
+    return manaColors[color] ?? "";
+  }
+
+  Future applyFilters() async {
+    var filteredCards = ObservableList.of(loadedCards!);
+
+    if (isFavoriteFilter) {
+      filteredCards =
+          ObservableList.of(await filterFavoriteCards(filteredCards));
+    }
+
+    if (isTextSearching.isNotEmpty && isTextSearching.trim().isNotEmpty) {
+      filteredCards = ObservableList.of(
+        filteredCards.where(
+          (card) =>
+              card.name.toLowerCase().contains(isTextSearching.toLowerCase()),
+        ),
+      );
+    }
+
+    if (isManaCostFilter) {
+      filteredCards = ObservableList.of(await filterByManaCost(filteredCards));
+    }
+
+    cardsToShow = filteredCards;
+
+    if (filteredCards.isNotEmpty &&
+        filteredCards.length > loadedCards!.length) {
+      cardsToShow = filteredCards;
+    } else {
+      loadMoreCards();
+    }
+  }
 
   @action
   Future loadMoreCards() async {
@@ -121,37 +171,6 @@ abstract class CardControllerBase with Store {
     await applyFilters();
   }
 
-  Future applyFilters() async {
-    var filteredCards = ObservableList.of(loadedCards!);
-
-    if (isFavoriteFilter) {
-      filteredCards =
-          ObservableList.of(await filterFavoriteCards(filteredCards));
-    }
-
-    if (isTextSearching.isNotEmpty && isTextSearching.trim().isNotEmpty) {
-      filteredCards = ObservableList.of(
-        filteredCards.where(
-          (card) =>
-              card.name.toLowerCase().contains(isTextSearching.toLowerCase()),
-        ),
-      );
-    }
-
-    if (isManaCostFilter) {
-      filteredCards = ObservableList.of(await filterByManaCost(filteredCards));
-    }
-
-    cardsToShow = filteredCards;
-
-    if (filteredCards.isNotEmpty &&
-        filteredCards.length > loadedCards!.length) {
-      cardsToShow = filteredCards;
-    } else {
-      loadMoreCards();
-    }
-  }
-
   Future<List<Cards>> filterFavoriteCards(List<Cards> cards) async {
     final favoriteCardsResult = await favoriteCardRepository.getFavoriteCards();
     return favoriteCardsResult.resolve(
@@ -162,24 +181,6 @@ abstract class CardControllerBase with Store {
         return favoriteCards.map((favorite) => favorite.card).toList();
       },
     );
-  }
-
-  Future<List<Cards>> filterByManaCost(List<Cards> cards) async {
-    return cards.where((card) {
-      if (selectedManaColors.isEmpty) {
-        return true;
-      }
-      for (var selectedColor in selectedManaColors) {
-        if (!card.manaCost.contains(getStringMana(selectedColor))) {
-          return false;
-        }
-      }
-      return true;
-    }).toList();
-  }
-
-  String getStringMana(ManaColor color) {
-    return manaColors[color] ?? "";
   }
 
   final List<Cards> mockedCards = [

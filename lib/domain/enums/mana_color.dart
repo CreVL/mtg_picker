@@ -10,5 +10,7 @@ enum ManaColor {
   @JsonValue("R")
   manaRed,
   @JsonValue("G")
-  manaGreen
+  manaGreen,
+  @JsonValue("X")
+  manaTransparent
 }

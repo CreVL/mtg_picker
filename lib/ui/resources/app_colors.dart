@@ -14,4 +14,5 @@ class AppColors {
   static const Color blackMana = Color(0xFF100F0F);
   static const Color redMana = Color(0xFFE8A88C);
   static const Color greenMana = Color(0xFFCCDB9C);
+  static const Color transparentMana = Color(0xFFFFFFFF);
 }
