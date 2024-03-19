@@ -65,12 +65,12 @@ abstract class CardControllerBase with Store {
   @observable
   Set<ManaColor> selectedManaColors = {};
 
-  final Map<String, ManaColor> manaColors = {
-    'W': ManaColor.manaWhite,
-    'U': ManaColor.manaBlue,
-    'B': ManaColor.manaBlack,
-    'R': ManaColor.manaRed,
-    'G': ManaColor.manaGreen,
+  final Map<ManaColor, String> manaColors = {
+    ManaColor.manaWhite: 'W',
+    ManaColor.manaBlue: 'U',
+    ManaColor.manaBlack: 'B',
+    ManaColor.manaRed: 'R',
+    ManaColor.manaGreen: 'G',
   };
 
   @action
@@ -169,13 +169,17 @@ abstract class CardControllerBase with Store {
       if (selectedManaColors.isEmpty) {
         return true;
       }
-      for (var manaString in card.manaCost.characters) {
-        if (selectedManaColors.contains(manaColors[manaString])) {
-          return true;
+      for (var selectedColor in selectedManaColors) {
+        if (!card.manaCost.contains(getStringMana(selectedColor))) {
+          return false ;
         }
       }
-      return false;
+      return  true;
     }).toList();
+  }
+
+  String getStringMana(ManaColor color) {
+    return manaColors[color] ?? "";
   }
 
   final List<Cards> mockedCards = [
