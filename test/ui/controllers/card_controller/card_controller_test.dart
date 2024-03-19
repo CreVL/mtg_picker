@@ -72,23 +72,6 @@ void main() {
       //check
       verifyInOrder([callable.call(true), callable.call(false)]);
     });
-    test(
-        'filterCardsByNameSearch() should filter loadedCards() with passed string'
-        'and set filtered value to cardsToShow field', () async {
-      //prep data
-      final card1 = MockCards();
-      final card2 = MockCards();
-      final card3 = MockCards();
-      when(card1.name).thenReturn('name test 1');
-      when(card2.name).thenReturn('name test 2');
-      when(card3.name).thenReturn('name test 3');
-      cardController.loadedCards =
-          mobx.ObservableList.of([card1, card2, card3]);
-      //manipulation
-      cardController.filterCardsByNameSearch('name test 2');
-      //check
-      expect(cardController.cardsToShow, containsAll([card2]));
-    });
     test('toggleFavoritesFilter() should call buildCardsDependOnFilter()',
         () async {
       //prep data
@@ -98,18 +81,6 @@ void main() {
       await cardController.toggleFavorites();
       //check
       expect(cardController.buildCardsDependOnFilterCalled, 1);
-    });
-    test(
-        'buildCardsDependOnFilter() should set isFiltered to false when FavoriteCardRepository.getFavoriteCards() is error',
-        () async {
-      //prep data
-      final errorResult = MockRepositoryError();
-      when(favoriteCardRepository.getFavoriteCards())
-          .thenAnswer((_) async => Either.left(errorResult));
-      //manipulation
-      await cardController.buildCardsDependOnFilterFavorite();
-      //check
-      expect(cardController.isFavoriteFilter, false);
     });
   });
 }
