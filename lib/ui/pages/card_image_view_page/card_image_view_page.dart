@@ -3,10 +3,10 @@ import 'package:mtg_picker/ui/resources/app_colors.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 import 'package:photo_view/photo_view.dart';
 
-class CardPageImageView extends StatelessWidget {
+class CardImageViewPage extends StatelessWidget {
   final String cardImageUrl;
 
-  const CardPageImageView({super.key, required this.cardImageUrl});
+  const CardImageViewPage({super.key, required this.cardImageUrl});
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:get_it/get_it.dart';
-import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart';
 import 'package:mtg_picker/domain/entities/card/card.dart';
-import 'package:mtg_picker/internal/hooks/effect_once_hook.dart';
 import 'package:mtg_picker/ui/controllers/favorite_controller/favorite_controller.dart';
 import 'package:mtg_picker/ui/providers/provider_extension.dart';
 import 'package:mtg_picker/ui/resources/app_colors.dart';

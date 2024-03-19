@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import '../../../domain/enums/mana_color.dart';
-import '../../resources/app_colors.dart';
 part 'filter_bottom_sheet_controller.g.dart';
 
 class FilterBottomSheetController = FilterBottomSheetControllerBase
