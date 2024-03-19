@@ -171,10 +171,10 @@ abstract class CardControllerBase with Store {
       }
       for (var selectedColor in selectedManaColors) {
         if (!card.manaCost.contains(getStringMana(selectedColor))) {
-          return false ;
+          return false;
         }
       }
-      return  true;
+      return true;
     }).toList();
   }
 
