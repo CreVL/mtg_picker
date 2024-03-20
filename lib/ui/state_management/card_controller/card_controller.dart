@@ -5,6 +5,7 @@ import 'package:mtg_picker/application/repository/favorite/favorite_card_reposit
 import 'package:mtg_picker/domain/entities/card/card.dart';
 
 import '../../../domain/enums/mana_color.dart';
+import '../../../utils/utils.dart';
 
 part 'card_controller.g.dart';
 
@@ -65,14 +66,14 @@ abstract class CardControllerBase with Store {
   @observable
   Set<ManaColor> selectedManaColors = {};
 
-  final Map<ManaColor, String> manaColors = {
-    ManaColor.manaWhite: 'W',
-    ManaColor.manaBlue: 'U',
-    ManaColor.manaBlack: 'B',
-    ManaColor.manaRed: 'R',
-    ManaColor.manaGreen: 'G',
-    ManaColor.manaTransparent: 'X',
-  };
+  @observable
+  bool sortByManaCountUp = true;
+
+  @action
+  Future toggleManaCountSort() async {
+    sortByManaCountUp = !sortByManaCountUp;
+    await applyFilters();
+  }
 
   Future<List<Cards>> filterByManaCost(List<Cards> cards) async {
     return cards.where((card) {
@@ -86,10 +87,6 @@ abstract class CardControllerBase with Store {
       }
       return true;
     }).toList();
-  }
-
-  String getStringMana(ManaColor color) {
-    return manaColors[color] ?? "";
   }
 
   Future applyFilters() async {
@@ -112,6 +109,14 @@ abstract class CardControllerBase with Store {
     if (isManaCostFilter) {
       filteredCards = ObservableList.of(await filterByManaCost(filteredCards));
     }
+
+    filteredCards.sort((card1, card2) {
+      int manaCount1 = getIntManaCount(card1.manaCost);
+      int manaCount2 = getIntManaCount(card2.manaCost);
+      return sortByManaCountUp
+          ? manaCount2.compareTo(manaCount1)
+          : manaCount1.compareTo(manaCount2);
+    });
 
     cardsToShow = filteredCards;
 

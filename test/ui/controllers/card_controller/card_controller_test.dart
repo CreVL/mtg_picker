@@ -56,6 +56,14 @@ void main() {
       //check
       expect(cardController.applyFiltersCalled, 1);
     });
+    test('toggleManaCountSort() should call applyFilters()', () async {
+      //prep data
+
+      //manipulation
+      await cardController.toggleManaCountSort();
+      //check
+      expect(cardController.applyFiltersCalled, 1);
+    });
     test('toggleFavorites() should toggle isFavoriteFilter to true, then false',
         () async {
       //prep data
@@ -108,14 +116,6 @@ void main() {
       await cardController.loadCards();
       //check
       expect(cardController.applyFiltersCalled, 1);
-    });
-    test('getStringMana() should return correct string', () async {
-      //prep data
-
-      //manipulation
-      final result = cardController.getStringMana(ManaColor.manaRed);
-      //check
-      expect(result, equals('R'));
     });
   });
 }

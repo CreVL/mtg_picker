@@ -16,9 +16,9 @@ class ManaCountFilterButton extends StatelessWidget {
       onTap: onTap,
       child: Icon(
         isCountDown
-            ? Icons.arrow_drop_up_rounded
-            : Icons.arrow_drop_down_rounded,
-        size: 24,
+            ? Icons.arrow_drop_down_rounded
+            : Icons.arrow_drop_up_rounded,
+        size: 50,
         color: Colors.grey,
       ),
     );

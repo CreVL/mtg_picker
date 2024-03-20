@@ -185,6 +185,31 @@ mixin _$CardController on CardControllerBase, Store {
     });
   }
 
+  late final _$sortByManaCountUpAtom =
+      Atom(name: 'CardControllerBase.sortByManaCountUp', context: context);
+
+  @override
+  bool get sortByManaCountUp {
+    _$sortByManaCountUpAtom.reportRead();
+    return super.sortByManaCountUp;
+  }
+
+  @override
+  set sortByManaCountUp(bool value) {
+    _$sortByManaCountUpAtom.reportWrite(value, super.sortByManaCountUp, () {
+      super.sortByManaCountUp = value;
+    });
+  }
+
+  late final _$toggleManaCountSortAsyncAction =
+      AsyncAction('CardControllerBase.toggleManaCountSort', context: context);
+
+  @override
+  Future<dynamic> toggleManaCountSort() {
+    return _$toggleManaCountSortAsyncAction
+        .run(() => super.toggleManaCountSort());
+  }
+
   late final _$loadMoreCardsAsyncAction =
       AsyncAction('CardControllerBase.loadMoreCards', context: context);
 
@@ -239,7 +264,8 @@ cardsToShow: ${cardsToShow},
 isManaCostFilter: ${isManaCostFilter},
 isSearch: ${isSearch},
 isTextSearching: ${isTextSearching},
-selectedManaColors: ${selectedManaColors}
+selectedManaColors: ${selectedManaColors},
+sortByManaCountUp: ${sortByManaCountUp}
     ''';
   }
 }

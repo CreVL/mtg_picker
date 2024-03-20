@@ -4,10 +4,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mtg_picker/ui/controllers/filter_bottom_sheet_controller/filter_bottom_sheet_controller.dart';
 import 'package:mtg_picker/ui/providers/provider_extension.dart';
 import 'package:mtg_picker/ui/resources/app_colors.dart';
+import 'package:mtg_picker/ui/state_management/card_controller/card_controller.dart';
 import 'package:mtg_picker/ui/theme/theme.dart';
 import 'package:mtg_picker/ui/widgets/bottom_sheet/bottom_sheet_hat.dart';
 
 import 'package:mtg_picker/ui/widgets/button/mana_color_filter_button/mana_color_filter_button.dart';
+import 'package:mtg_picker/ui/widgets/button/mana_count_filter_button/mana_count_filter_button.dart';
 
 import '../../../../domain/enums/mana_color.dart';
 
@@ -20,7 +22,7 @@ class FilterBottomSheet extends HookWidget {
   Widget build(BuildContext context) {
     final filterBottomSheetController =
         context.watch<FilterBottomSheetController>();
-
+    final cardController = context.watch<CardController>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -132,6 +134,12 @@ class FilterBottomSheet extends HookWidget {
                     Text(
                       "ManaCost count:",
                       style: themeData.textTheme.titleLarge,
+                    ),
+                    ManaCountFilterButton(
+                      isCountDown: cardController.sortByManaCountUp,
+                      onTap: () {
+                        cardController.toggleManaCountSort();
+                      },
                     ),
                   ],
                 ),
