@@ -1,17 +1,20 @@
 import 'package:mtg_picker/ui/state_management/card_controller/card_controller.dart';
 
-class MockCardController extends CardController {
-  MockCardController(
+class MockCardControllerTester extends CardController {
+  MockCardControllerTester(
     super.cardsRepository,
     super.favoriteCardRepository,
   );
 
-  int buildCardsDependOnFilterCalled = 0;
-  int loadCardsCalled = 0;
+  int applyFiltersCalled = 0;
 
   @override
   Future<void> loadCards() async {
-    loadCardsCalled += 1;
-    return super.loadCards();
+    applyFiltersCalled += 1;
+  }
+
+  @override
+  Future<void> applyFilters() async {
+    applyFiltersCalled += 1;
   }
 }
