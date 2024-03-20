@@ -174,7 +174,7 @@ class CardPage extends HookWidget {
                                             ),
                                           );
                                         } else if (cardController
-                                            .isPaggination) {
+                                            .isPagination) {
                                           return const Padding(
                                             padding: EdgeInsets.all(16.0),
                                             child: Center(
