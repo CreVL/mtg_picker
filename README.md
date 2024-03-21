@@ -9,3 +9,6 @@ This app utilizes the [Magic: The Gathering API](https://docs.magicthegathering.
 ## Features
 
 - Card exploration
+- Favorite cards section
+- Card filtering by mana color and quantity
+- Detailed card view with zoom functionality
