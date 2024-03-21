@@ -6,6 +6,7 @@ import 'package:mtg_picker/application/repository/cards/cards_repository.dart';
 import 'package:mtg_picker/application/repository/favorite/favorite_card_repository.dart';
 import 'package:mtg_picker/application/repository/repository_error.dart';
 import 'package:mtg_picker/domain/entities/card/card.dart';
+import 'package:mtg_picker/domain/enums/mana_color.dart';
 import 'package:mtg_picker/internal/entities/either.dart';
 
 import '../../../internal/mocks/callable/callable.mocks.dart';
@@ -23,64 +24,98 @@ void main() {
   group('card_controller tests---', () {
     late MockCardsRepository cardsRepository;
     late MockFavoriteCardRepository favoriteCardRepository;
-    late MockCardController cardController;
-
+    late MockCardControllerTester cardController;
     setUp(() {
       cardsRepository = MockCardsRepository();
       favoriteCardRepository = MockFavoriteCardRepository();
       cardController =
-          MockCardController(cardsRepository, favoriteCardRepository);
+          MockCardControllerTester(cardsRepository, favoriteCardRepository);
     });
+    test('toggleSearch() should call applyFilters()', () async {
+      //prep data
 
-    test('getCards() should set hasError to true on error', () async {
-      //prep data
-      final errorResult = MockRepositoryError();
-      when(cardsRepository.getCards())
-          .thenAnswer((_) async => Either.left(errorResult));
       //manipulation
-      await cardController.loadCards();
+      await cardController.toggleSearch('text');
       //check
-      expect(cardController.hasError, true);
+      expect(cardController.applyFiltersCalled, 1);
     });
-    test(
-        'loadMoreCards() should increment the currentPage at the end of the scroll',
-        () async {
+    test('toggleFavorites() should call applyFilters()', () async {
       //prep data
-      final page = cardController.currentPage;
-      final mockedCards = [MockCards()];
-      final result = mockedCards;
-      when(cardsRepository.getCards(page: anyNamed('page')))
-          .thenAnswer((_) async => Either.right(result));
-      //manipulation
-      await cardController.loadMoreCards();
-      //check
-      expect(cardController.currentPage, page + 1);
-    });
-    test('loadCards() should set isLoading to true, then to false', () async {
-      //prep data
-      final callable = MockCallable();
-      mobx.reaction(
-        (p0) => cardController.isLoading,
-        (p0) => callable.call(p0),
-      );
-      final mockedCards = [MockCards()];
-      final result = mockedCards;
-      when(cardsRepository.getCards())
-          .thenAnswer((_) async => Either.right(result));
-      //manipulation
-      await cardController.loadCards();
-      //check
-      verifyInOrder([callable.call(true), callable.call(false)]);
-    });
-    test('toggleFavoritesFilter() should call buildCardsDependOnFilter()',
-        () async {
-      //prep data
-      const isFiltered = true;
-      cardController.isFavoriteFilter = isFiltered;
+      const isFavoriteFilter = true;
+      cardController.isFavoriteFilter = isFavoriteFilter;
       //manipulation
       await cardController.toggleFavorites();
       //check
-      expect(cardController.buildCardsDependOnFilterCalled, 1);
+      expect(cardController.applyFiltersCalled, 1);
+    });
+    test('toggleManaCostFilter() should call applyFilters()', () async {
+      //prep data
+      Set<ManaColor> selectedManaColors = {ManaColor.manaRed};
+      //manipulation
+      await cardController.toggleManaCostFilter(selectedManaColors);
+      //check
+      expect(cardController.applyFiltersCalled, 1);
+    });
+    test('toggleManaCountSort() should call applyFilters()', () async {
+      //prep data
+
+      //manipulation
+      await cardController.toggleManaCountSort();
+      //check
+      expect(cardController.applyFiltersCalled, 1);
+    });
+    test('toggleFavorites() should toggle isFavoriteFilter to true, then false',
+        () async {
+      //prep data
+      when(favoriteCardRepository.getFavoriteCards())
+          .thenAnswer((_) async => Either.right([]));
+      final callable = MockCallable();
+      mobx.reaction(
+        (p0) => cardController.isFavoriteFilter,
+        (p0) => callable(p0),
+      );
+      //manipulation
+      await cardController.toggleFavorites();
+      await cardController.toggleFavorites();
+      //check
+      verifyInOrder([
+        callable(true),
+        callable(false),
+      ]);
+    });
+    test('loadCards() should update loadedCards', () async {
+      //prep data
+      final List<Cards> mockCards = [];
+      when(cardsRepository.getCards())
+          .thenAnswer((_) async => Either.right(mockCards));
+      //manipulation
+      await cardController.loadCards();
+      //check
+      expect(cardController.loadedCards, mockCards);
+    });
+    test('loadMoreCards() should call applyFilters()', () async {
+      //prep data
+      bool isPagination = true;
+      final List<Cards> mockCards = [];
+      cardController.isPagination = isPagination;
+      when(cardsRepository.getCards(page: anyNamed('page')))
+          .thenAnswer((_) async => Either.right(mockCards));
+      //manipulation
+      await cardController.loadMoreCards();
+      //check
+      expect(cardController.applyFiltersCalled, 1);
+    });
+    test('loadCards() should call applyFilters()', () async {
+      //prep data
+      bool isPagination = true;
+      final List<Cards> mockCards = [];
+      cardController.isPagination = isPagination;
+      when(cardsRepository.getCards(page: anyNamed('page')))
+          .thenAnswer((_) async => Either.right(mockCards));
+      //manipulation
+      await cardController.loadCards();
+      //check
+      expect(cardController.applyFiltersCalled, 1);
     });
   });
 }
