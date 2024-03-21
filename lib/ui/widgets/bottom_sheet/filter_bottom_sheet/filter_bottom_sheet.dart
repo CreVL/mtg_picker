@@ -111,6 +111,17 @@ class FilterBottomSheet extends HookWidget {
                         );
                       },
                     ),
+                    ManaColorFilterButton(
+                      color: AppColors.transparentMana,
+                      isSelected:
+                          filterBottomSheetController.transparentManaSelected,
+                      onTap: () {
+                        filterBottomSheetController.toggleTransparentMana();
+                        filterChanged(
+                          filterBottomSheetController.selectedColors,
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

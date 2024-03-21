@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import '../../../domain/enums/mana_color.dart';
-import '../../resources/app_colors.dart';
+
 part 'filter_bottom_sheet_controller.g.dart';
 
 class FilterBottomSheetController = FilterBottomSheetControllerBase
@@ -31,35 +30,62 @@ abstract class FilterBottomSheetControllerBase with Store {
   bool greenManaSelected = false;
 
   @observable
+  bool transparentManaSelected = false;
+
+  @observable
   Set<ManaColor> selectedColors = {};
 
   @action
   void toggleWhiteMana() {
     whiteManaSelected = !whiteManaSelected;
+    if (whiteManaSelected && !transparentManaSelected) {
+      transparentManaSelected = true;
+    }
     updateFilters();
   }
 
   @action
   void toggleBlueMana() {
     blueManaSelected = !blueManaSelected;
+    if (blueManaSelected && !transparentManaSelected) {
+      transparentManaSelected = true;
+    }
     updateFilters();
   }
 
   @action
   void toggleBlackMana() {
     blackManaSelected = !blackManaSelected;
+    if (blackManaSelected && !transparentManaSelected) {
+      transparentManaSelected = true;
+    }
     updateFilters();
   }
 
   @action
   void toggleRedMana() {
     redManaSelected = !redManaSelected;
+    if (redManaSelected && !transparentManaSelected) {
+      transparentManaSelected = true;
+    }
     updateFilters();
   }
 
   @action
   void toggleGreenMana() {
     greenManaSelected = !greenManaSelected;
+    if (greenManaSelected && !transparentManaSelected) {
+      transparentManaSelected = true;
+    }
+    updateFilters();
+  }
+
+  @action
+  void toggleTransparentMana() {
+    transparentManaSelected = !transparentManaSelected;
+    if (!transparentManaSelected && selectedColors.isEmpty) {
+      transparentManaSelected = true;
+    }
     updateFilters();
   }
 
@@ -71,6 +97,12 @@ abstract class FilterBottomSheetControllerBase with Store {
     if (blackManaSelected) selectedColors.add(ManaColor.manaBlack);
     if (redManaSelected) selectedColors.add(ManaColor.manaRed);
     if (greenManaSelected) selectedColors.add(ManaColor.manaGreen);
+    if (transparentManaSelected && selectedColors.isNotEmpty) {
+      selectedColors.add(ManaColor.manaTransparent);
+    }
+    if (selectedColors.isEmpty) {
+      transparentManaSelected = false;
+    }
     filterChanged?.call(selectedColors);
   }
 }
